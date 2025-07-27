@@ -78,7 +78,7 @@ const UserForm = () => {
       {({ setFieldValue, isSubmitting }) => (
         <Card className="mt-4 shadow mx-auto" style={{ maxWidth: '600px' }}>
           <Card.Body>
-            <Card.Title className="text-center mb-4">User Registration</Card.Title>
+            <Card.Title className=" ">User Registration</Card.Title>
             <Form encType="multipart/form-data">
               <Row>
                 <Col md={6}>
@@ -171,10 +171,17 @@ const UserForm = () => {
 
             
 
-              <div className="d-grid">
+              <div className="d-flex">
                 <Button type="submit" disabled={isSubmitting}>
                   Submit
                 </Button>
+                 <Button
+                                variant="secondary"
+                                className="ms-2"
+                                onClick={() => dispatch(setLocation('/userProfile'))}
+                              >
+                                Cancel
+                              </Button>
               </div>
             </Form>
           </Card.Body>

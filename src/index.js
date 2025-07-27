@@ -18,7 +18,11 @@ import uploadpostSlice from './redux/PostingSlice'
 import locationSlice from './redux/LocationSlice'
 import uploadcommentreducer from './redux/Uploadcomment';
 import fetchdetailsreducer from './redux/Personaldetailsslice';
-
+import educationReducer from './redux/EducationSlice'
+import experienceReducer from './redux/experiencePostSlice'
+import skillsReducer from './redux/skillsPostSlice'
+import certificatereducer from './redux/uploadcertification';
+import deleterecordreducer from './redux/deleterecord'
 const store=configureStore({
   reducer:{
     company:companySlice,
@@ -32,9 +36,15 @@ const store=configureStore({
     uploadpost:uploadpostSlice,
     location:locationSlice,
     uploadcomment:uploadcommentreducer ,
-    userdetails:fetchdetailsreducer
+    userdetails:fetchdetailsreducer,
+    education:educationReducer,
+    experience:experienceReducer,
+    skill:skillsReducer,
+    certificate:certificatereducer,
+    deleterecord:deleterecordreducer
     
   }
+  
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

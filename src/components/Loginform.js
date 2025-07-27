@@ -62,7 +62,7 @@ const Loginform = () => {
         
             <Form>
               <div className="mb-3">
-                <label className="form-label">Username</label>
+                <label className="form-label">Email</label>
                 <Field name="email" className="form-control" placeholder="Enter email" />
                 <div className="text-danger">
                   <ErrorMessage name="username" />

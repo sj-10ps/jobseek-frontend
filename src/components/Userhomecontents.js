@@ -24,7 +24,7 @@ const Userhomecontents = () => {
 
         {/* Right Side */}
         <Col style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-          {location.value === "/userhome" && (
+          {location.value === "/" && (
             <>
               {/* Fixed Top Postminicard */}
               <div style={{ flexShrink: 0 }}>

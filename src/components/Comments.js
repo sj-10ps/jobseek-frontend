@@ -31,7 +31,7 @@ const CommentsView = () => {
   return (
     <Card className="mt-4 p-4 shadow-sm rounded" style={{ width: '100%' }}>
       <Card.Header style={{ fontWeight: 'bold', backgroundColor: '#f4f4f4',position:'sticky',top:1,zIndex:1 ,display:'flex',flexDirection:'column'}}>
-       <div style={{marginRight:5,cursor:'pointer'}} onClick={()=>dispatch(setLocation('/userhome'))}>🔙Comments</div>
+       <div style={{marginRight:5,cursor:'pointer'}} onClick={()=>dispatch(setLocation('/'))}>🔙Comments</div>
           <Form onSubmit={handlesubmit}>
   <Form.Group controlId="exampleInput">
     
