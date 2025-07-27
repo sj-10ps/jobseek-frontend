@@ -1,0 +1,16 @@
+.main{
+display: flex;
+flex-direction: column;
+
+}
+
+header{
+     position: fixed;
+     display: block;
+     z-index: 1;
+     height: 70px;
+   
+    width: 100vw;
+    
+}
+

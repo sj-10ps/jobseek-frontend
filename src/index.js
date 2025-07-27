@@ -3,12 +3,45 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { configureStore } from '@reduxjs/toolkit';
+import companySlice from './redux/companySlice';
+import { Provider } from 'react-redux';
+import userSlice from './redux/userSlice';
+import loginslice from './redux/loginSclice';
+import forgotslice from './redux/forgotSlice'
+import passresetSlice from './redux/PassresetSlice';
+import themeSlice from './redux/themeSlice'
+import profileSlice from './redux/Profilefetch'
+import  postfetchSlice  from './redux/Postslice';
+import uploadpostSlice from './redux/PostingSlice'
+import locationSlice from './redux/LocationSlice'
+import uploadcommentreducer from './redux/Uploadcomment';
+import fetchdetailsreducer from './redux/Personaldetailsslice';
+
+const store=configureStore({
+  reducer:{
+    company:companySlice,
+    user:userSlice,
+    login:loginslice,
+    forgot:forgotslice,
+    passreset:passresetSlice,
+    theme:themeSlice,
+    profile:profileSlice,
+    postfetch:postfetchSlice,
+    uploadpost:uploadpostSlice,
+    location:locationSlice,
+    uploadcomment:uploadcommentreducer ,
+    userdetails:fetchdetailsreducer
+    
+  }
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+ <Provider store={store}>
     <App />
-  </React.StrictMode>
+</Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
