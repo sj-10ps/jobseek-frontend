@@ -23,7 +23,7 @@ const uploadpostSlice=createSlice({
     initialState:{
         loading:false,
         success:true,
-        data:null
+        data:[]
     },
     reducers:{},
     extraReducers:(builder)=>{

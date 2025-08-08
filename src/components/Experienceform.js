@@ -7,6 +7,7 @@ import { postExperience } from '../redux/experiencePostSlice' // adjust to your 
 import { setLocation } from '../redux/LocationSlice' // adjust if needed
 import { formatProdErrorMessage } from '@reduxjs/toolkit'
 import { uploadexperience } from '../redux/experiencePostSlice'
+import { fetchdetails } from '../redux/Personaldetailsslice'
 
 const ExperienceForm = () => {
   const dispatch = useDispatch()
@@ -32,13 +33,14 @@ const ExperienceForm = () => {
     description: Yup.string().required('Required')
   })
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = async(values, { resetForm }) => {
     const formData=new FormData()
     for (let i in values){
        formData.append(i,values[i])
     }
     formData.append("userid",localStorage.getItem("userid"))
     dispatch(uploadexperience(formData))
+    await dispatch(fetchdetails(localStorage.getItem("userid")))
     resetForm()
     dispatch(setLocation('/')) 
   }

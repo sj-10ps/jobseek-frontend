@@ -9,7 +9,7 @@ import Spinner from 'react-bootstrap/Spinner';
 const Companyreg = () => {
   const [password, setPassword] = useState(false);
   const dispatch = useDispatch();
-  const { loading, success } = useSelector((state) => state.company);
+  const { loading, success,status } = useSelector((state) => state.company);
 
   const validationSchema = Yup.object({
     name: Yup.string().min(3, "Minimum 3 letters required").required('Name is required'),
@@ -22,7 +22,7 @@ const Companyreg = () => {
     logo: Yup.mixed().nullable(),
     linkedin: Yup.string().url('Invalid LinkedIn URL').notRequired(),
     website: Yup.string().url('Invalid website URL').notRequired(),
-    username: Yup.string().min(3, "Minimum 3 letters").required("Username is required"),
+     description: Yup.string().min(6, "Minimum 20 letters").required("description is required"),
     password: Yup.string().min(6, "Minimum 6 letters").required("Password is required"),
   });
 
@@ -37,7 +37,7 @@ const Companyreg = () => {
     website: '',
     linkedin: '',
     industry: '',
-    username: '',
+    description:'',
     password: '',
   };
 
@@ -48,6 +48,7 @@ const Companyreg = () => {
     });
 
     await dispatch(registerCompany(formdata));
+    
     
     resetForm();
   };
@@ -95,6 +96,9 @@ const Companyreg = () => {
                 <Field name='website' placeholder='Website URL' className='form-control' />
                 <ErrorMessage name="website" component="div" className="text-danger" />
 
+                 <Field name='description' placeholder='description' className='form-control' />
+                <ErrorMessage name="description" component="div" className="text-danger" />
+
                 
 
                 <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -109,6 +113,7 @@ const Companyreg = () => {
               
                   {loading ? <Spinner animation="border" size="sm" /> : 'Submit'}
                 </button>
+                <p style={{color:"red"}}>{status}</p>
                      
               </div>
             </Form>

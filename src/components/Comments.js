@@ -50,14 +50,14 @@ const CommentsView = () => {
                 className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3"
                 style={{ width: 40, height: 40, fontSize: 14 }}
               >
-                {comment.comment}
+                {comment.authorName}
               </div>
               <div>
                 <div className="fw-bold">{comment.comment}</div>
                 <div className="text-muted" style={{ fontSize: "0.85rem" }}>
-                  {new Date(comment.comment).toLocaleString()}
+                  {new Date(comment.createdAt).toLocaleString()}
                 </div>
-                <div className="mt-1">{comment.comment}</div>
+              
               </div>
             </ListGroup.Item>
           ))

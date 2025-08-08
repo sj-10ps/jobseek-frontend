@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { uploadeducation } from '../redux/EducationSlice';
 import { setLocation } from '../redux/LocationSlice';
+import { fetchdetails } from '../redux/Personaldetailsslice';
 
 const Educationform = () => {
 
@@ -29,14 +30,17 @@ const Educationform = () => {
     extra: Yup.string(),
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async(values) => {
     const formData=new FormData()
+    
     for (let value in values){
       formData.append(value,values[value])
     }
     formData.append("userid",localStorage.getItem('userid'))
     dispatch(uploadeducation(formData))
+    await dispatch(fetchdetails(localStorage.getItem('userid')))
     dispatch(setLocation('/'))
+
 
   };
 
@@ -44,7 +48,7 @@ const Educationform = () => {
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
       {() => (
         <Form encType='multipart/form-data'>
-          <Card className='mt-4 shadow mx-auto' style={{ width: '28rem' }}>
+        <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem' }}> 
             <Card.Body>
               <h5 className='text-center mb-4'>Education Details</h5>
 

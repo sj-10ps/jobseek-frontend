@@ -1,8 +1,4 @@
-.main{
-display: flex;
-flex-direction: column;
 
-}
 
 header{
      position: fixed;
@@ -11,6 +7,13 @@ header{
      height: 70px;
    
     width: 100vw;
+    
+}
+
+.content{
+    min-height: 100vh;
+    max-height: fit-content;
+    min-width: 100vw;
     
 }
 

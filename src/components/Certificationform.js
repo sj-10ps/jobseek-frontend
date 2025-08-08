@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { uploadeducation } from '../redux/uploadcertification'; 
 import { setLocation } from '../redux/LocationSlice';
+import { fetchdetails } from '../redux/Personaldetailsslice';
 
 const CertificationForm = () => {
   const dispatch = useDispatch();
@@ -28,13 +29,14 @@ const CertificationForm = () => {
     media: Yup.mixed().required('Media file is required'),
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit =async (values) => {
     const formData = new FormData();
     for (let key in values) {
       formData.append(key, values[key]);
     }
     formData.append("userid", localStorage.getItem("userid"));
     dispatch(uploadeducation(formData));
+    await dispatch(fetchdetails(localStorage.getItem("userid")))
     dispatch(setLocation('/'));
   };
 
@@ -42,7 +44,7 @@ const CertificationForm = () => {
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
       {({ setFieldValue }) => (
         <Form encType="multipart/form-data">
-          <Card className="mt-4 shadow mx-auto" style={{ width: '28rem' }}>
+          <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem' }}>
             <Card.Body>
               <h5 className="text-center mb-4">Certification Details</h5>
 

@@ -1,0 +1,147 @@
+/* src/css/Template4.css */
+:root {
+  --primary-color: #3f51b5; /* A deep blue */
+  --secondary-color: #e8eaf6; /* Light blue accent */
+  --text-color: #333;
+  --light-text-color: #666;
+  --border-color: #ddd;
+  --background-color: #f0f2f5;
+  --box-shadow-color: rgba(0, 0, 0, 0.1);
+}
+.etcr-resume-page-wrapper {
+  background-color: var(--background-color);
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+.etcr-resume-container {
+  width: 8.5in;
+  min-height: 11in;
+  background-color: #fff;
+  box-shadow: 0 4px 15px var(--box-shadow-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.etcr-header {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 30px 40px;
+  text-align: center;
+}
+.etcr-name {
+  font-size: 2.5em;
+  font-weight: 700;
+  margin-bottom: 5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  word-break: break-word;
+}
+.etcr-title {
+  font-size: 1.2em;
+  font-weight: 300;
+  margin-bottom: 15px;
+  letter-spacing: 0.8px;
+  word-break: break-word;
+}
+.etcr-contact-info {
+  font-size: 0.85em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px 15px;
+  color: #e0e0e0;
+}
+.etcr-contact-info span,
+.etcr-contact-info a {
+  color: #e0e0e0;
+  text-decoration: none;
+  word-break: break-all;
+}
+.etcr-contact-info a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+.etcr-content-columns {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  padding: 20px 40px 30px;
+}
+.etcr-left-column {
+  flex: 1;
+  padding-right: 25px;
+  border-right: 1px solid var(--border-color);
+}
+.etcr-right-column {
+  flex: 2;
+  padding-left: 25px;
+}
+.etcr-section {
+  margin-bottom: 25px;
+  break-inside: avoid;
+}
+.etcr-section-title {
+  font-size: 1.3em;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.etcr-skills-list { list-style: none; padding: 0; margin: 0; }
+.etcr-skills-list li { margin-bottom: 8px; font-size: 0.95em; }
+.etcr-education-item, .etcr-certification-item { margin-bottom: 15px; break-inside: avoid; }
+.etcr-education-item h3, .etcr-certification-item h3 { font-size: 1.05em; font-weight: 600; margin-bottom: 3px; }
+.etcr-edu-field, .etcr-edu-institute, .etcr-edu-dates, .etcr-cert-issuer, .etcr-cert-date { font-size: 0.85em; color: var(--light-text-color); margin-bottom: 2px; }
+.etcr-summary-section p { font-size: 0.95em; }
+.etcr-experience-item { margin-bottom: 25px; break-inside: avoid; }
+.etcr-exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; gap: 15px; }
+.etcr-experience-item h3 { font-size: 1.15em; font-weight: 600; margin: 0; }
+.etcr-exp-dates { font-size: 0.85em; color: var(--light-text-color); font-style: italic; white-space: nowrap; flex-shrink: 0; }
+.etcr-exp-company-location { font-size: 0.9em; color: var(--light-text-color); margin-bottom: 10px; }
+.etcr-exp-description-list { list-style: disc; margin-left: 20px; padding-left: 0; font-size: 0.9em; }
+.etcr-exp-description-list li { margin-bottom: 5px; }
+@media (max-width: 768px) {
+  .etcr-resume-container { width: 95%; margin: 20px auto; min-height: auto; }
+  .etcr-header { padding: 25px; }
+  .etcr-content-columns { flex-direction: column; padding: 20px; }
+  .etcr-left-column { border-right: none; border-bottom: 1px solid var(--border-color); padding-right: 0; padding-bottom: 20px; margin-bottom: 20px; }
+  .etcr-right-column { padding-left: 0; }
+  .etcr-name { font-size: 2em; }
+  .etcr-title { font-size: 1em; }
+}
+@media (max-width: 480px) {
+  .etcr-resume-page-wrapper { padding: 10px; }
+  .etcr-resume-container { padding: 0; }
+  .etcr-header { padding: 20px 15px; }
+  .etcr-content-columns { padding: 15px; }
+  .etcr-name { font-size: 1.8em; }
+  .etcr-title { font-size: 0.9em; }
+  .etcr-contact-info { flex-direction: column; align-items: center; gap: 5px; }
+  .etcr-contact-info span:not(:first-child) { display: none; }
+}
+@media print {
+  @page { size: letter; margin: 0.5in; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .etcr-resume-page-wrapper { background-color: #fff; padding: 0; margin: 0; }
+  .etcr-resume-container { width: 100%; min-height: auto; box-shadow: none; border: none; }
+  .etcr-header { background-color: #fff !important; color: #000 !important; padding: 0 0 0.2in 0; margin-bottom: 0.2in; border-bottom: 2px solid #ccc; text-align: left; }
+  .etcr-name, .etcr-title, .etcr-contact-info span, .etcr-contact-info a { color: #000 !important; }
+  .etcr-contact-info { justify-content: flex-start; }
+  a { text-decoration: none; color: inherit; }
+  .etcr-section-title { border-bottom-color: #ccc; color: #000; }
+  .etcr-content-columns { padding: 0; }
+  .etcr-left-column { border-right-color: #ccc; padding-right: 0.25in; }
+  .etcr-right-column { padding-left: 0.25in; }
+}

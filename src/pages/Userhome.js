@@ -6,6 +6,13 @@ import { useLocation } from 'react-router-dom'
 import Userhomecontents from '../components/Userhomecontents'
 import CommentsView from '../components/Comments'
 import UserProfile from '../components/Userprofile'
+import Showresumetemplates from '../components/Showresumetemplates'
+import Showresumepreview from '../components/Showresumepreview'
+import ViewallUsers from '../components/ViewallUsers'
+import ViewAllcompanies from '../components/ViewAllcompanies'
+import Alljobs from '../components/Alljobs'
+import Community from '../components/Community'
+import Messaging from '../components/Messaging'
 
 
 const Userhome = () => {
@@ -15,14 +22,22 @@ const Userhome = () => {
      <header>
     <NavBar/>
      </header>
-     <main style={{height:'100vh'}}>
-      {pathname=="/userhome"&&<Userhomecontents/>}
+     <main className='content'>
+      {pathname==="/userhome"&&<Userhomecontents/>}
      
-       {pathname=="/userintro"&&<UserIntro/>}
-       {pathname==="/userProfile"&&<UserProfile/>}
+       {pathname==="/userintro"&&<UserIntro/>}
+       {pathname.startsWith("/userProfile")&&<UserProfile/>}
       
-       
+       {pathname==="/resumetemplates" && <Showresumetemplates/>}
+       {pathname.startsWith('/Showresumepreview/')&& <Showresumepreview/>}
+        {pathname.startsWith('/viewallusers')&&<ViewallUsers/>}
+   
+        {pathname.startsWith('/companyprofile')&&<ViewAllcompanies/>}
+         {pathname.startsWith('/alljobs')&&<Alljobs/>}
+         {pathname.startsWith('/usercommunity')&&<Community/>}
+         {pathname==='/messaging'&&<Messaging/>}
          
+
          
         
      </main>

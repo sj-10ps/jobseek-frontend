@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 const UserIntro = () => {
   return (
-    <div className='d-flex justify-content-center align-items-center h-100'>
-      <Card style={{ width: '18rem' }}>
+    <div className='d-flex justify-content-center align-items-center' style={{height:'100%'}}>
+     <Card className="w-100 w-md-75 w-lg-50" style={{ maxWidth: '30rem' ,margin:'100px'}}>
   <Card.Img variant="top" src={`jobseek.png`} />
   <Card.Body>
     <Card.Title className="fw-bold text-primary">Unlock Your Career Potential</Card.Title>

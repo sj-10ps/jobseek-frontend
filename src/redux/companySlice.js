@@ -16,6 +16,7 @@ const companySlice=createSlice({
     initialState:{
         loading:false,
         success:false,
+        status:null
        
     },
     reducers:{},
@@ -29,6 +30,7 @@ const companySlice=createSlice({
           .addCase(registerCompany.fulfilled,(state,action)=>{
             state.loading=false
             state.success=true
+            state.status=action.payload.status
            
           })
         

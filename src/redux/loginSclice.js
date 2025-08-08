@@ -36,7 +36,8 @@ const loginslice=createSlice({
             state.status=action.payload.status
             state.userinfo={
                 userid:action.payload.userId,
-                usertype:action.payload.usertype
+                usertype:action.payload.usertype,
+                log_id:action.payload.log_id
             }
         })
     }

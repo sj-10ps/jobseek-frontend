@@ -23,6 +23,22 @@ import experienceReducer from './redux/experiencePostSlice'
 import skillsReducer from './redux/skillsPostSlice'
 import certificatereducer from './redux/uploadcertification';
 import deleterecordreducer from './redux/deleterecord'
+import uploadcustomreducer from './redux/uploadcustomresumeSlice';
+import fetchusercompaniesReducer from './redux/fetchuserandcompanies';
+import followunfollowreducer from './redux/Followingslice';
+
+import followedstatusreducer from './redux/followedstatus';
+import fetchcompanyreducer from './redux/fetchcompanydetails';
+import followingfollowercountreducer from './redux/Followingandfollowercount';
+import uploadjobreducer from './redux/uploadjobslice';
+import fetchalljobsreducer from './redux/fetchjobsslice';
+import applyjobreducer from './redux/applyjobslice';
+import viewapplicantreducer from './redux/viewapplicantSlice';
+import selectapplicantsreducer from './redux/applicantsselection';
+import fetchallpostsreducer from './redux/fetchallposts';
+import messagereducer from './redux/Fetchmessages';
+
+
 const store=configureStore({
   reducer:{
     company:companySlice,
@@ -41,7 +57,20 @@ const store=configureStore({
     experience:experienceReducer,
     skill:skillsReducer,
     certificate:certificatereducer,
-    deleterecord:deleterecordreducer
+    deleterecord:deleterecordreducer,
+    uploadcustom:uploadcustomreducer,
+    fetchusercompanies:fetchusercompaniesReducer,
+    fetchcompany:fetchcompanyreducer,
+    followunfollow:followunfollowreducer,
+    followedstatus:followedstatusreducer,
+    followingfollowercount:followingfollowercountreducer,
+    uploadjob:uploadjobreducer,
+    fetchjob:fetchalljobsreducer,
+    applyjob:applyjobreducer,
+    viewapplicant:viewapplicantreducer,
+    selectapplicants:selectapplicantsreducer,
+    fetchallposts:fetchallpostsreducer,
+    messages:messagereducer
     
   }
   

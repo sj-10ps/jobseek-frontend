@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { ip } from './ip';
 
-export const    uploadeducation = createAsyncThunk(
+export const uploadeducation = createAsyncThunk(
   'education/certification',
   async (formData, { rejectWithValue }) => {
     try {

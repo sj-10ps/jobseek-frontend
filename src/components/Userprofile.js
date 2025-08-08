@@ -1,11 +1,11 @@
 
 import Card from 'react-bootstrap/Card';
-import { Button, Image } from 'react-bootstrap';
-import { useEffect } from 'react';
+import { Button, Image, Spinner } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchdetails } from '../redux/Personaldetailsslice';
 import { ip } from '../redux/ip'; 
-import { Link } from 'react-router-dom'; // Keep if you use Link elsewhere
+import { Link, useNavigate, useParams } from 'react-router-dom'; // Keep if you use Link elsewhere
 import { setid, setLocation } from '../redux/LocationSlice';
 import UserForm from './ProfileUpdateCard';
 import SimpleImageUpload from './UpdateImage';
@@ -16,24 +16,62 @@ import CertificationForm from './Certificationform';
 import { MdDelete } from "react-icons/md";
 import ResumeCard from './Uploadresume';
 import { deleterecord } from '../redux/deleterecord'; 
+import { fetchcustomresume } from '../redux/uploadcustomresumeSlice';
+import Postcard from './Postcard';
+import { followunfollow } from '../redux/Followingslice';
+import { passreset } from '../redux/PassresetSlice';
+import { checkfollowstatus } from '../redux/followedstatus';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
   const userid = localStorage.getItem("userid");
+  const logid=localStorage.getItem("logid")
+  const navigate=useNavigate()
+  const {otheruserid}=useParams()
 
   const { value} = useSelector((state) => state.location);
   
   const { loading, success, profiledata, certificatedata, educationdata, experiencedata, skillsdata } = useSelector((state) => state.userdetails);
+  const {data,successresume,loadingresume}=useSelector((state)=>state.uploadcustom)
+  const {loadingfollow,successfollow,followedstatus}=useSelector((state)=>state.followunfollow)
+  const {followstatussuccess,followstatusloading,followdata} =useSelector((state)=>state.followedstatus)
+ 
+
+
+
 
   useEffect(() => {
-    if (userid) { 
-      dispatch(fetchdetails(userid));
+    if (otheruserid) { 
+      dispatch(fetchdetails(otheruserid));
+      dispatch(fetchcustomresume(otheruserid))
+      dispatch(checkfollowstatus({followingid:otheruserid,followerid:userid}))
+     
+    
+    
+     
+  
+    }else{
+
+       dispatch(fetchdetails(userid));
+       
+      dispatch(fetchcustomresume(userid))
     
     }
-  }, [dispatch, value]); 
+  }, [dispatch, userid,otheruserid]); 
 
 
-  const handleDelete = (recordId, recordType) => {
+
+
+const handlefollowunfollow=async(otheruserloginid)=>{
+  await dispatch(followunfollow({followingid:otheruserloginid,followerid:logid}))
+  await dispatch(checkfollowstatus({followingid:otheruserloginid,followerid:logid}))
+  
+  
+}
+
+
+ 
+  const handleDelete = async(recordId, recordType) => {
   
     if (window.confirm(`Are you sure you want to delete this ${recordType} record?`)) {
       const formdata = new FormData();
@@ -42,14 +80,19 @@ const UserProfile = () => {
       formdata.append("userid", userid); 
       dispatch(setLocation('/userProfile'))
       dispatch(deleterecord(formdata));
+      await dispatch(fetchdetails(userid))
+      
   
     }
   };
 
   return (
-    <div className="d-flex flex-column m-5 gap-4 pt-3 justify-content-start align-items-start overflow-scroll" style={{ height: "90%" }}>
 
-      <Card style={{ width: '30rem', borderRadius: '1rem', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>
+ <div className="d-flex m-3 justify-content-between  gap-4 " style={{width:'100%',flexWrap:'wrap'}}>
+
+    <div className="d-flex flex-column p-4 gap-2 pt-3 " style={{height:'100vh', overflow:'scroll',scrollbarWidth:'none'}}>
+
+      <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem',padding:'20px' }}>
         {loading && <div className="p-3 text-center">Loading details...</div>}
 
         {success && (
@@ -61,14 +104,15 @@ const UserProfile = () => {
               <div
                 className="position-relative d-flex flex-column align-items-center mb-3"
                 style={{ cursor: 'pointer' }}
-                onClick={() => dispatch(setLocation('/updateimage'))}
+                onClick={otheruserid===null?() => dispatch(setLocation('/updateimage')):undefined}
               >
                 <Image
                   src={profiledata.image !== 'pending' ? `${ip}/media/profile/${profiledata.image}` : 'logo512.png'}
                   roundedCircle
                   style={{ height: '100px', width: '100px', objectFit: 'cover' }}
                 />
-                <span
+                {!otheruserid&&
+                          <span
                   style={{
                     position: 'absolute',
                     bottom: 0,
@@ -78,9 +122,12 @@ const UserProfile = () => {
                     borderRadius: '50%',
                     padding: '0.3rem 0.6rem',
                     fontSize: '1rem',
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    
                   }}
                 >+</span>
+                }
+      
               </div>
             )}
 
@@ -88,11 +135,12 @@ const UserProfile = () => {
             <Card.Title className="text-center fs-4 fw-bold">
               {`${profiledata.firstname}`.toUpperCase()} {`${profiledata.lastname}`.toUpperCase()}
             </Card.Title>
-            <Card.Subtitle className="mb-3 text-muted text-center">Personal Details</Card.Subtitle>
+            <Card.Subtitle className="mb-3 text-muted text-center">{profiledata.professionaltitle}</Card.Subtitle>
 
             {/* Main Info */}
             <Card.Text><strong>Email:</strong> {profiledata.email}</Card.Text>
             <Card.Text><strong>Phone:</strong> {profiledata.phone || <span className="text-secondary">Add phone no...</span>}</Card.Text>
+             <Card.Text className='text-secondary'>{profiledata.summary || 'Add summary ...'}</Card.Text>
 
             <div className="d-flex justify-content-between">
               <Card.Text><strong>Gender:</strong> {profiledata.gender || <span className="text-secondary">Add gender...</span>}</Card.Text>
@@ -112,14 +160,26 @@ const UserProfile = () => {
 
             {/* Update Button */}
             <Card.Footer className="bg-transparent border-top-0 text-center mt-4">
+               {!otheruserid||userid===otheruserid?
               <Button variant="primary" onClick={(e) => {
                 e.preventDefault();
                 dispatch(setLocation("/profileForm"));
                 dispatch(setid(profiledata._id));
               }}>
                 ✏️ Update Personal Details
+              </Button>:
+                  <Button variant="primary" onClick={
+               ()=>
+                  handlefollowunfollow(profiledata.login)
+               
+
+              }>
+            
+            {followstatusloading&&<Spinner animation='border'/>}
+              {followdata.length===0?'follow':'unfollow'}
               </Button>
-            </Card.Footer>
+}
+            </Card.Footer>  
           </Card.Body>
         )}
 
@@ -127,12 +187,12 @@ const UserProfile = () => {
         {value === "/profileForm" && <UserForm />}
       </Card>
 
-      <Card style={{ width: '30rem' }}>
+    <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem' }}>
         <Card.Body>
           <Card.Title>Education</Card.Title>
           {loading && <>Loading data....</>}
           {success && educationdata.map((edu) => (
-            <Card key={edu._id} style={{ width: '28rem', marginTop: 2, marginBottom: 2 }}>
+          <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '28rem' }}>
               <Card.Body>
                 <Card.Text>
                   <strong> Degree: </strong> {edu.degree}
@@ -141,7 +201,7 @@ const UserProfile = () => {
                   <strong> Institute: </strong>{edu.institute}
                 </Card.Text>
                 <Card.Text>
-                  <strong>  Field:</strong> {edu.field}
+                  <strong> Field:</strong> {edu.field}
                 </Card.Text>
                 <Card.Text>
                   <strong> Description:</strong> {edu.extra}
@@ -149,33 +209,37 @@ const UserProfile = () => {
 
                 <div className='d-flex gap-1'>
                   <Card.Text>
-                    <strong>  From: </strong>{new Date(edu.startdate).toLocaleDateString('en-GB')}
+                    <strong> From: </strong>{new Date(edu.startdate).toLocaleDateString('en-GB')}
                   </Card.Text>
                   <Card.Text>
                     <strong>  To:</strong> {new Date(edu.enddate).toLocaleDateString('en-GB')}
                   </Card.Text>
                 </div>
                 <Card.Footer>
+                   {!otheruserid&&
                   <MdDelete
                     style={{ cursor: edu._id !=null?'pointer':'none', fontSize: '24px', color: 'red' }}
                     onClick={() => handleDelete(edu._id, "education")}
                     
                   />
+                   }
                 </Card.Footer>
               </Card.Body>
             </Card>
           ))}
+           {!otheruserid&&
           <Button onClick={(e) => { e.preventDefault(); dispatch(setLocation("/educationform")); dispatch(setid(localStorage.getItem('userid'))) }} >Add education</Button>
-        </Card.Body>
+           }
+          </Card.Body>
         {value === '/educationform' && <Educationform />}
       </Card>
 
-      <Card style={{ width: '30rem' }}>
+    <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem' }}>
         <Card.Body>
           <Card.Title>Experience</Card.Title>
           {loading && <>Loading data....</>}
           {success && experiencedata.map((exp) => (
-            <Card key={exp._id} style={{ width: '28rem', marginTop: 2, marginBottom: 2 }}>
+            <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem' }}>
               <Card.Body>
                 <Card.Text><strong>Company:</strong> {exp.company}</Card.Text>
                 <Card.Text><strong>Role:</strong> {exp.role}</Card.Text>
@@ -187,15 +251,19 @@ const UserProfile = () => {
                   <Card.Text><strong>To:</strong> {new Date(exp.enddate).toLocaleDateString('en-GB')}</Card.Text>
                 </div>
                 <Card.Footer>
+                   {!otheruserid&&
                   <MdDelete
                     style={{ cursor: 'pointer', fontSize: '24px', color: 'red' }}
                     onClick={() => handleDelete(exp._id, "experience")}
                   />
+                   }
                 </Card.Footer>
               </Card.Body>
             </Card>
           ))}
 
+
+ {!otheruserid&&
           <Button
             onClick={(e) => {
               e.preventDefault()
@@ -205,28 +273,33 @@ const UserProfile = () => {
           >
             Add Experience
           </Button>
+}
           {value === '/experienceform' && <ExperienceForm />}
         </Card.Body>
       </Card>
 
-      <Card style={{ width: '30rem' }}>
+     <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem' }}>
         <Card.Body>
           <Card.Title>Skills</Card.Title>
           {loading && <>Loading data....</>}
           {success && skillsdata.map((skill) => (
-            <Card key={skill._id} style={{ width: '28rem', marginTop: 2, marginBottom: 2 }}>
+            <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem' }}>
               <Card.Body>
                 <Card.Text><strong>Skill:</strong> {skill.skill}</Card.Text>
                 <Card.Text><strong>Proficiency:</strong> {skill.level}</Card.Text>
               </Card.Body>
               <Card.Footer>
                 <Button variant="link" onClick={() => handleDelete(skill._id, "skill")} className="p-0 border-0">
+                   {!otheruserid&&
                   <MdDelete style={{ cursor: 'pointer', fontSize: '24px', color: 'red' }} />
+                   }
                 </Button>
               </Card.Footer>
             </Card>
           ))}
 
+
+         {!otheruserid&&
           <Button
             className='mt-3'
             onClick={(e) => {
@@ -237,11 +310,12 @@ const UserProfile = () => {
           >
             Add Skill
           </Button>
+}
           {value === '/skillform' && <SkillsForm />}
         </Card.Body>
       </Card>
 
-      <Card style={{ width: '30rem' }}>
+     <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem' }}>
         <Card.Body>
           <Card.Title>Certifications</Card.Title>
           {loading && <>Loading data...</>}
@@ -254,7 +328,7 @@ const UserProfile = () => {
             const isDoc = ['doc', 'docx'].includes(fileExt);
 
             return (
-              <Card key={cert._id} style={{ width: '28rem', marginTop: 10, marginBottom: 10 }}>
+            <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem' }}>
                 <Card.Body>
                   {/* File Preview */}
                   {cert.media && (
@@ -302,16 +376,19 @@ const UserProfile = () => {
                     )}
                   </Card.Text>
                   <Card.Footer>
+                     {!otheruserid&&
                     <MdDelete
                       style={{ cursor: 'pointer', fontSize: '24px', color: 'red' }}
                       onClick={() => handleDelete(cert._id, "certificate")}
                     />
+                     }
                   </Card.Footer>
                 </Card.Body>
               </Card>
             );
           })}
 
+         {!otheruserid&&
           <Button
             onClick={(e) => {
               e.preventDefault();
@@ -321,11 +398,34 @@ const UserProfile = () => {
           >
             Add Certification
           </Button>
+}
         </Card.Body>
         {value === '/certificationform' && <CertificationForm />}
       </Card>
 
-      <ResumeCard />
+      <ResumeCard  otheruserid={otheruserid}/>
+    </div>
+    <div className='me-4 d-flex flex-column gap-3' style={{height:'100vh'}}>
+       {!otheruserid&&
+      <Button className='btn btn-primary' onClick={()=>navigate('/resumetemplates')}>Generate Resume</Button>
+       }
+      <div>
+         <Card className='w-100 w-md-75 w-lg-50' style={{maxWidth:'30rem'}}>
+        <Card.Body>
+          <Card.Title>Custom Resume</Card.Title>
+          {loadingresume&&<>loading resume</>}
+          {data?.generatedPdf??false?<Card.Link href={`${ip}/media/resume/${data.generatedPdf}`}>📄 View resume</Card.Link>:'no document'}
+          
+        </Card.Body>
+
+       </Card>
+      </div>
+      {success&&otheruserid&&
+      <div style={{overflow:'scroll',width:'400px',scrollbarWidth:'none'}}>
+      <Postcard otheruserid={profiledata.login}/>
+      </div>
+      }
+    </div>
     </div>
   );
 }

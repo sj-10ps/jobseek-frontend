@@ -1,0 +1,292 @@
+/* src/ContemporarySidebarResume.css */
+
+/* Root variables for easy customization */
+:root {
+  --sidebar-bg-color: #2c3e50; /* Dark blue/grey */
+  --sidebar-text-color: #ecf0f1; /* Light grey for readability */
+  --accent-color: #3498db; /* Blue accent */
+  --main-text-color: #333;
+  --light-text-color: #666;
+  --heading-color: #2c3e50;
+  --border-color: #eee;
+}
+
+.cs-resume-page-wrapper {
+  background-color: #f8f9fa; /* Light page background */
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align to top for longer resumes */
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: 'Roboto', 'Open Sans', Arial, sans-serif;
+  color: var(--main-text-color);
+}
+
+.cs-resume-container {
+  display: flex;
+  width: 8.5in; /* Standard letter size width */
+  min-height: 11in; /* Standard letter size height */
+  background-color: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: hidden; /* Ensures rounded corners */
+}
+
+/* Left Sidebar Styles */
+.cs-sidebar {
+  flex: 0 0 30%; /* Fixed width for sidebar (e.g., 30% of resume width) */
+  background-color: var(--sidebar-bg-color);
+  color: var(--sidebar-text-color);
+  padding: 30px 20px;
+  box-sizing: border-box;
+  line-height: 1.6;
+}
+
+.cs-profile-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Light separator */
+}
+
+.cs-name {
+  font-size: 2.2em;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cs-title {
+  font-size: 1.1em;
+  font-weight: 300;
+  color: var(--sidebar-text-color);
+  opacity: 0.9;
+}
+
+.cs-sidebar-section {
+  margin-bottom: 25px;
+}
+
+.cs-sidebar-title {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--accent-color); /* Underline accent */
+  padding-bottom: 5px;
+}
+
+.cs-contact-info-section p {
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}
+
+.cs-contact-info-section strong {
+  color: #fff; /* Make labels stand out */
+}
+
+.cs-contact-info-section a {
+  color: var(--sidebar-text-color);
+  text-decoration: none;
+}
+
+.cs-contact-info-section a:hover {
+  text-decoration: underline;
+  color: var(--accent-color);
+}
+
+.cs-skills-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cs-skills-list li {
+  font-size: 0.9em;
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 15px;
+}
+
+.cs-skills-list li::before {
+  content: '\2022'; /* Bullet point */
+  color: var(--accent-color);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.cs-education-item, .cs-certification-item {
+  margin-bottom: 15px;
+}
+
+.cs-education-item h3, .cs-certification-item h3 {
+  font-size: 1em;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.cs-edu-field, .cs-edu-institute, .cs-edu-dates, .cs-edu-extra,
+.cs-cert-issuer, .cs-cert-date, .cs-cert-id, .cs-cert-media {
+  font-size: 0.85em;
+  color: var(--sidebar-text-color);
+  margin-bottom: 3px;
+}
+
+.cs-cert-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 0.85em;
+}
+.cs-cert-link:hover {
+    text-decoration: underline;
+}
+
+/* Right Main Content Styles */
+.cs-main-content {
+  flex: 1; /* Takes remaining space */
+  padding: 30px 40px;
+  box-sizing: border-box;
+}
+
+.cs-main-section {
+  margin-bottom: 30px;
+}
+
+.cs-main-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--heading-color);
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border-color);
+  text-transform: uppercase;
+}
+
+.cs-summary-section p {
+  font-size: 1em;
+  color: var(--light-text-color);
+}
+
+.cs-experience-item {
+  margin-bottom: 20px;
+}
+
+.cs-exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+
+.cs-experience-item h3 {
+  font-size: 1.15em;
+  font-weight: 600;
+  color: var(--heading-color);
+  margin: 0;
+}
+
+.cs-exp-dates {
+  font-size: 0.9em;
+  color: var(--light-text-color);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.cs-exp-company-location {
+  font-size: 0.95em;
+  color: var(--light-text-color);
+  margin-bottom: 10px;
+}
+
+.cs-exp-description-list {
+  list-style: disc;
+  margin-left: 20px;
+  font-size: 0.95em;
+  color: var(--main-text-color);
+}
+
+.cs-exp-description-list li {
+  margin-bottom: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cs-resume-container {
+    flex-direction: column; /* Stack sidebar and main content vertically */
+    width: 100%; /* Take full width on smaller screens */
+    margin: 20px; /* Add some margin from screen edges */
+    min-height: auto; /* Allow height to expand */
+  }
+
+  .cs-sidebar {
+    flex: none; /* Remove flex sizing */
+    width: 100%; /* Take full width */
+    padding: 20px 25px; /* Adjust padding */
+    border-bottom: 5px solid var(--accent-color); /* Visual separation */
+  }
+
+  .cs-main-content {
+    padding: 20px 25px; /* Adjust padding */
+  }
+
+  .cs-profile-header {
+    border-bottom: none; /* Remove border if it's too much */
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cs-name {
+    font-size: 1.8em;
+  }
+  .cs-title {
+    font-size: 0.9em;
+  }
+  .cs-sidebar, .cs-main-content {
+    padding: 15px;
+  }
+}
+
+/* Print styles */
+@media print {
+    .cs-resume-page-wrapper {
+        background-color: #fff;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+        min-height: auto;
+    }
+    .cs-resume-container {
+        width: 8.5in;
+        min-height: 11in;
+        box-shadow: none;
+        border: none;
+        margin: 0;
+        border-radius: 0;
+        overflow: visible; /* Prevent clipping for print */
+    }
+    .cs-sidebar {
+        background-color: #f0f0f0 !important; /* Lighter background for print */
+        color: #333 !important; /* Darker text for print */
+    }
+    .cs-sidebar-title {
+        color: var(--heading-color) !important;
+        border-bottom-color: var(--border-color) !important;
+    }
+    .cs-skills-list li::before {
+        color: var(--heading-color) !important;
+    }
+    .cs-education-item h3, .cs-certification-item h3 {
+        color: #333 !important;
+    }
+    .cs-cert-link {
+        color: #007bff !important; /* Ensure links are visible */
+    }
+}

@@ -27,6 +27,7 @@ const UserForm = () => {
  const initialValues = {
   firstname: profiledata?.firstname || '',
   lastname: profiledata?.lastname || '',
+  professionaltitle: profiledata?.professionaltitle || '',
   email: profiledata?.email || '',
   age: profiledata?.age || '',
   gender: profiledata?.gender || '',
@@ -35,6 +36,7 @@ const UserForm = () => {
   phone: profiledata?.phone || '',
   linkedin: profiledata?.linkedin || '',
   github: profiledata?.github || '',
+  summary:profiledata?.summary||''
  
 };
 
@@ -43,6 +45,7 @@ const UserForm = () => {
   const validationSchema = Yup.object({
     firstname: Yup.string().required('First name is required'),
     lastname: Yup.string().required('Last name is required'),
+    
     email: Yup.string().email('Invalid email').required('Email is required'),
     phone: Yup.string().matches(/^\d{10}$/, 'Enter valid 10-digit phone'),
     linkedin: Yup.string().url('Enter valid LinkedIn URL'),
@@ -60,6 +63,7 @@ const UserForm = () => {
     setSubmitting(false);
     dispatch(updateProfile(formData))
     dispatch(setLocation('/userProfile'))
+    await dispatch(fetchdetails(userid))
     
   };
  
@@ -76,7 +80,7 @@ const UserForm = () => {
       
     >
       {({ setFieldValue, isSubmitting }) => (
-        <Card className="mt-4 shadow mx-auto" style={{ maxWidth: '600px' }}>
+       <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem' }}>
           <Card.Body>
             <Card.Title className=" ">User Registration</Card.Title>
             <Form encType="multipart/form-data">
@@ -110,6 +114,12 @@ const UserForm = () => {
                 <BootstrapForm.Label>Email</BootstrapForm.Label>
                 <Field name="email" className="form-control" type="email" />
                 <ErrorMessage name="email" component="div" className="text-danger small" />
+                <BootstrapForm.Label>Professional Title</BootstrapForm.Label>
+                <Field name="professionaltitle" className="form-control" type="text" />
+                <ErrorMessage name="professionaltitle" component="div" className="text-danger small" />
+                <BootstrapForm.Label>Summary</BootstrapForm.Label>
+                <Field name="summary" className="form-control" type="text" />
+                <ErrorMessage name="summary" component="div" className="text-danger small" />
               </BootstrapForm.Group>
 
               <Row>

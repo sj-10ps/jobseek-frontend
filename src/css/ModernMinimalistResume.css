@@ -1,0 +1,206 @@
+/* ResumeTemplate.css (Responsive Version) */
+
+/* Base styles */
+.resume-page-wrapper {
+  background-color: #f5f5dc;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Header outside the card */
+.page-header-outside {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.name-outside {
+  font-family: 'Arial', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.professional-title-outside {
+  font-family: 'Arial', sans-serif;
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Resume container */
+.resume-container {
+  width: 100%;
+  max-width: 900px;
+  min-height: auto;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+/* Contact info */
+.contact-info {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.contact-info span,
+.contact-info a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #555;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* Headings */
+section h2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+/* Summary paragraph */
+.professional-summary-section p {
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+/* Skills grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.skill-item p {
+  margin: 0;
+}
+
+/* Experience */
+.experience-item {
+  margin-bottom: 20px;
+}
+
+.experience-item h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.experience-item .company-info {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.experience-item .description-list {
+  list-style-type: disc;
+  margin-left: 20px;
+  font-size: 0.9rem;
+}
+
+.experience-item .description-list li {
+  margin-bottom: 5px;
+}
+
+/* Education and Certifications */
+.education-item,
+.certification-item {
+  margin-bottom: 15px;
+}
+
+.education-item h3,
+.certification-item h3 {
+  font-size: 1.05rem;
+  font-weight: bold;
+  margin-bottom: 3px;
+  color: #444;
+}
+
+.institute-info,
+.certification-details {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.education-extra {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .resume-container {
+    padding: 1.5rem;
+  }
+
+  .name-outside {
+    font-size: 2rem;
+  }
+
+  .professional-title-outside {
+    font-size: 1rem;
+  }
+
+  section h2 {
+    font-size: 1.2rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .resume-container {
+    padding: 1rem;
+  }
+
+  .name-outside {
+    font-size: 1.8rem;
+  }
+
+  .professional-title-outside {
+    font-size: 0.95rem;
+  }
+
+  .contact-info {
+    font-size: 0.85rem;
+    flex-direction: column;
+  }
+
+  .contact-info span,
+  .contact-info a {
+    display: block;
+    margin: 2px 0;
+  }
+}

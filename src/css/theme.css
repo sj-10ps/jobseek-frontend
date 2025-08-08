@@ -1,0 +1,6 @@
+.moon::before {
+  content: '\1F31C'; /* Crescent Moon emoji 🌜 */
+}
+.sun::before {
+  content: '\1F31E'; /* Sun with face emoji 🌞 */
+}

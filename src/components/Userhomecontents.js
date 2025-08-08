@@ -4,54 +4,47 @@ import Col from 'react-bootstrap/Col';
 import Profileminicard from './Profileminicard';
 import Postminicard from './Postminicard';
 import Postcard from './Postcard';
-import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
-import CommentsView from './Comments';
 import { useSelector } from 'react-redux';
+import CommentsView from './Comments';
+import FollowersFollowing from './Followingandfollowers';
 
 const Userhomecontents = () => {
-  const location =useSelector((state)=>state.location)
-
-
+  const location = useSelector((state) => state.location);
 
   return (
-    <Container style={{marginTop:'70px'}}>
-      <Row style={{ height: '90vh', flexWrap: 'wrap' }}>
-        {/* Left Side - Profile */}
-        <Col style={{ height: '100%' }}>
+    <Container style={{ marginTop: '70px' }}>
+      <Row className="gx-4" style={{ justifyContent: 'center' }}>
+        {/* Left Column */}
+        <Col xs={12} md={4} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
           <Profileminicard />
+          <Postminicard />
         </Col>
 
-        {/* Right Side */}
-        <Col style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-          {location.value === "/" && (
-            <>
-              {/* Fixed Top Postminicard */}
-              <div style={{ flexShrink: 0 }}>
-                <Postminicard />
-              </div>
-
-              {/* Posts */}
-              <div style={{
-                flexGrow: 1,
+        {/* Right Column */}
+        <Col xs={12} md={8}>
+          {location.value === '/' && (
+            <div
+              style={{
+                maxHeight: '80vh',
                 overflowY: 'auto',
-                marginTop: '10px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '10px'
-              }}>
-                <Postcard />
-              </div>
-            </>
+                gap: '10px',
+              }}
+            >
+              <Postcard />
+            </div>
           )}
 
-          {location.value === "/comments" && (
-            <div style={{
-              flexGrow: 1,
-              overflowY: 'auto',
-              marginTop: 10
-            }}>
+          {location.value === '/comments' && (
+            <div style={{ overflowY: 'auto', marginTop: 10 }}>
               <CommentsView />
+            </div>
+          )}
+
+          {location.value === '/followers' && (
+            <div style={{ marginTop: 10 }}>
+              <FollowersFollowing />
             </div>
           )}
         </Col>

@@ -5,6 +5,7 @@ import { Form as BootstrapForm, Button, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { uploadskills } from '../redux/skillsPostSlice'
 import { setLocation } from '../redux/LocationSlice'
+import { fetchdetails } from '../redux/Personaldetailsslice'
 
 const SkillsForm = () => {
   const dispatch = useDispatch()
@@ -20,20 +21,22 @@ const SkillsForm = () => {
     proficiency: Yup.string().required('Proficiency is required')
   })
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = async(values, { resetForm }) => {
     const formData = new FormData()
     for (let key in values) {
       formData.append(key, values[key])
     }
     formData.append('userid', localStorage.getItem('userid'))
 
+
     dispatch(uploadskills(formData))
+    await dispatch(fetchdetails(localStorage.getItem("userid")))
     resetForm()
     dispatch(setLocation('/'))
   }
 
   return (
-    <Card style={{ width: '28rem', marginTop: 10 }}>
+    <Card className="w-100 w-md-75 w-lg-50 mb-4" style={{ maxWidth: '30rem' }}>
       <Card.Body>
         <Card.Title>Add Skill</Card.Title>
         <Formik
