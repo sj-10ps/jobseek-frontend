@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ip } from "./ip";
-import { act } from "react";
+
 
 export const fetchdetails=createAsyncThunk(
     "userdetails/fetchdetails",

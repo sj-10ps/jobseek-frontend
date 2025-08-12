@@ -5,17 +5,28 @@ import { fetchalljobs } from '../redux/fetchjobsslice';
 import { ip } from '../redux/ip';
 import { appliedjobs, applyjob } from '../redux/applyjobslice';
 import { useStatStyles } from '@chakra-ui/react';
+import '../css/searchbar.css'
 
 const Alljobsuser = () => {
     const dispatch=useDispatch()
     const {loading,success,data}=useSelector(state=>state.fetchjob)
     const {appliedoading,appliedsuccess,applieddata}=useSelector(state=>state.applyjob)
-    const [applied,setapplied]=useState('')
+    const [alljobs,setalljobs]=useState([])
+    const [filteredjobs,setfilteredjobs]=useState([])
     const userid=localStorage.getItem("userid")
     useEffect(()=>{
      dispatch(fetchalljobs())
+    
      dispatch(appliedjobs(userid))
     },[dispatch])
+
+    useEffect(()=>{
+      if(data){
+        setalljobs(data)
+        setfilteredjobs(data)
+      }
+    },[data])
+    const [search,setsearch]=useState('')
 
     const handleapplication=async(type,jobid)=>{
 
@@ -28,13 +39,25 @@ const Alljobsuser = () => {
     alert("applied")
     }
 
+
+    const handlesearch=(e)=>{
+        const jobtitle=e.target.value.toLowerCase()
+        const searchedjobs=alljobs.filter(job=>job.title.toLowerCase().startsWith(jobtitle))
+        setfilteredjobs(searchedjobs)
+
+    }
+
     {loading&&appliedoading&&<div>"loading Details</div>}
   return (
     <div className="container mt-4">
       <h3 className="mb-4">Available Jobs</h3>
+       <div class="search-container">
+    <input type="search" placeholder="Search Job Title..." class="search-input"  onChange={handlesearch}/>
+    <span class="search-icon">&#128269;</span>
+  </div>
       <Row>
-        {data && data.length > 0 ? (
-          data.map((job, index) =>{
+        {filteredjobs && filteredjobs.length > 0 ? (
+          filteredjobs.map((job, index) =>{
            let isapplied= applieddata.some(applied=>applied.job._id===job._id)
           return  (
             <Col md={6} lg={4} key={index} className="mb-4">

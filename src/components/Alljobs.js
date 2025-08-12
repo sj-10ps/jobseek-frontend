@@ -17,7 +17,7 @@ const AllJobs = () => {
   ];
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial', width: '90vw', maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{ padding: '20px', fontFamily: 'Arial', width: '90vw', maxWidth: '1200px', margin: '0 auto' ,  zIndex:0}}>
       
       {/* Sticky Tab Bar */}
       <div
@@ -32,7 +32,7 @@ const AllJobs = () => {
           padding: '10px 0',
           borderBottom: '1px solid #ddd',
           width:'fit-content',
-          padding:20
+         
         }}
       >
         {tabs.map((tab) => (
@@ -61,7 +61,8 @@ const AllJobs = () => {
         style={{
           overflowY: 'auto',
           maxHeight: '75vh',
-          scrollbarWidth: 'none', // Firefox
+          scrollbarWidth: 'none', 
+        
         }}
         className="hide-scrollbar" // For Chrome (optional CSS below)
       >

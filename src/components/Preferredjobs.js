@@ -5,6 +5,7 @@ import { fetchalljobs, preferredjobs } from '../redux/fetchjobsslice';
 import { ip } from '../redux/ip';
 import { appliedjobs, applyjob } from '../redux/applyjobslice';
 import { useStatStyles } from '@chakra-ui/react';
+import '../css/searchbar.css'
 
 const Preferredjobs = () => {
     const dispatch=useDispatch()
@@ -26,15 +27,38 @@ const Preferredjobs = () => {
    
     
     alert("applied")
+
+    }
+    useEffect(() => {
+  if(preferreddata){
+    setalljobs(preferreddata);
+    setfilteredjobs(preferreddata);
+  }
+}, [preferreddata]);
+
+
+     const [alljobs,setalljobs]=useState([])
+        const [filteredjobs,setfilteredjobs]=useState([])
+
+
+        const handlesearch=(e)=>{
+        const jobtitle=e.target.value.toLowerCase()
+        const searchedjobs=alljobs.filter(job=>job.title.toLowerCase().startsWith(jobtitle))
+        setfilteredjobs(searchedjobs)
+
     }
 
     {loading&&appliedoading&&<div>"loading Details</div>}
   return (
     <div className="container mt-4">
       <h3 className="mb-4">Preffered Jobs</h3>
+        <div class="search-container">
+    <input type="search" placeholder="Search Job Title..." class="search-input"  onChange={handlesearch}/>
+    <span class="search-icon">&#128269;</span>
+    </div>
       <Row>
-        {preferreddata && preferreddata.length > 0 ? (
-          preferreddata.map((job, index) =>{
+        {filteredjobs && filteredjobs.length > 0 ? (
+          filteredjobs.map((job, index) =>{
            let isapplied= applieddata.some(applied=>applied.job._id===job._id)
           return  (
             <Col md={6} lg={4} key={index} className="mb-4">
@@ -43,7 +67,7 @@ const Preferredjobs = () => {
                   {/* Company Info */}
                   <div className="d-flex align-items-center mb-3">
                     <Image
-                      src={`${ip}/media/profile/${job.company.logo}`}
+                         src={`${ip}/media/profile/${job.company.logo}`}
                       roundedCircle
                       style={{ width: 50, height: 50, marginRight: 15 }}
                       alt="Company Logo"
