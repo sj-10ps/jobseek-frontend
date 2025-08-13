@@ -10,7 +10,7 @@ const CommentsView = () => {
     const postid=useSelector((state)=>state.location.id)
     const {loading,success,fetchloading,fetchsuccess,data}=useSelector((state)=>state.uploadcomment)
 
-
+   
     const [comment,setComment]=useState('')
     
   const handlesubmit=async(e)=>{

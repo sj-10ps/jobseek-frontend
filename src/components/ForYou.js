@@ -5,13 +5,22 @@ import { ip } from "../redux/ip";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchyourposts } from "../redux/fetchallposts";
 import { updatelikes } from "../redux/PostingSlice";
+import { setLocale } from "yup";
+import { setid, setLocation } from "../redux/LocationSlice";
+import CommentsView from "./Comments";
 
 const ForYou = () => {
   const dispatch = useDispatch();
+  const location = useSelector((state) => state.location);
   const { loading, success, foryoudata } = useSelector(state => state.fetchallposts);
   const [likestatus, setlikestatus] = useState({});
   const [likecount, setlikecount] = useState({});
   const logid = localStorage.getItem("logid");
+
+    const handlenavigation = (itemid) => {
+      dispatch(setLocation('/comments'));
+      dispatch(setid(itemid));
+    };
 
   // Fetch posts
   useEffect(() => {
@@ -55,9 +64,13 @@ const ForYou = () => {
     );
   }
 
+  if(location.value==="/"){
+
+
   return (
     <Container className="d-flex flex-column align-items-center gap-4">
-      {foryoudata.length === 0 ? (
+    
+      { foryoudata.length === 0 ? (
         <p className="text-center text-muted">No posts available</p>
       ) : (
         foryoudata.map(post => {
@@ -106,14 +119,34 @@ const ForYou = () => {
                   >
                     {likestatus[post._id] ? "❤️ Liked" : "🤍 Like"}
                   </Button>
+                   <div
+                  onClick={() => handlenavigation(post._id)}
+                  className="d-flex align-items-center gap-2"
+                  style={{ cursor: 'pointer', fontWeight: '500' }}
+                >
+                  💬 Comment
+                </div>
                 </div>
               </Card.Body>
             </Card>
           );
         })
       )}
+    
+     
+     
     </Container>
-  );
+    
+  ); }else{
+    return(
+              <Container className="d-flex flex-column align-items-center gap-4" style={{maxWidth:'600px'}}>
+              <CommentsView />
+              </Container>
+            
+    )
+  }
+  
 };
+ 
 
 export default ForYou;

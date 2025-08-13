@@ -4,14 +4,22 @@ import { ip } from "../redux/ip";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchallposts } from "../redux/fetchallposts";
 import { updatelikes } from "../redux/PostingSlice";
+import { setid, setLocation } from "../redux/LocationSlice";
+import CommentsView from "./Comments";
 
 const Allposts = () => {
   const dispatch = useDispatch();
+   const location = useSelector((state) => state.location);
   const { loading, success, data } = useSelector((state) => state.fetchallposts);
   const [likestatus, setlikestatus] = useState({});
   const [likecount, setlikecount] = useState({});
   const logid = localStorage.getItem("logid");
 
+
+   const handlenavigation = (itemid) => {
+        dispatch(setLocation('/comments'));
+        dispatch(setid(itemid));
+      };
   // Fetch all posts
   useEffect(() => {
     dispatch(fetchallposts(logid));
@@ -57,6 +65,8 @@ const Allposts = () => {
     );
   }
 
+
+    if(location.value==="/"){
   return (
     <Container className="d-flex flex-column align-items-center gap-4">
       {data.length === 0 ? (
@@ -108,6 +118,13 @@ const Allposts = () => {
                   >
                     {likestatus[post._id] ? "❤️ Liked" : "🤍 Like"}
                   </Button>
+                    <div
+                  onClick={() => handlenavigation(post._id)}
+                  className="d-flex align-items-center gap-2"
+                  style={{ cursor: 'pointer', fontWeight: '500' }}
+                >
+                  💬 Comment
+                </div>
                 </div>
               </Card.Body>
             </Card>
@@ -115,7 +132,15 @@ const Allposts = () => {
         })
       )}
     </Container>
-  );
+  );}else{
+    
+    return(
+              <Container className="d-flex flex-column align-items-center gap-4" style={{maxWidth:'600px'}}>
+              <CommentsView />
+              </Container>
+            
+    )
+  }
 };
 
 export default Allposts;

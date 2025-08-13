@@ -176,7 +176,7 @@ const handlefollowunfollow=async(otheruserloginid)=>{
               }>
             
             {followstatusloading&&<Spinner animation='border'/>}
-              {followdata.length===0?'follow':'unfollow'}
+              {followdata!==null?'follow':'unfollow'}
               </Button>
 }
             </Card.Footer>  

@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import ForYou from "./ForYou";
 import Allposts from "./Allposts";
+import { setLocation } from "../redux/LocationSlice";
+import { useDispatch } from "react-redux";
 
 const Community = () => {
   const [activeTab, setActiveTab] = useState("forYou");
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    dispatch(setLocation("/"));
+  },[])
 
   return (
     <Container fluid className="p-4">
