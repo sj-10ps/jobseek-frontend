@@ -31,7 +31,7 @@ const ViewallUsers = () => {
     dispatch(checkfollowstatusall({ followerid: localStorage.getItem("logid") }));
   }, [query, dispatch]);
 
-  if (loading) {
+  if (loading||followstatusloading) {
     return (
       <div className="text-center mt-5">
         <Spinner animation="border" />
@@ -40,11 +40,11 @@ const ViewallUsers = () => {
   }
 
   return (
-    <Container className="mt-4" style={{ height: "90vh", overflowY: 'scroll', padding: 10 ,scrollbarWidth:'none'}}>
+    <Container className="mt-4" style={{ height: "90vh", overflowY: 'scroll', padding: 10 ,scrollbarWidth:'none',marginTop:30}}>
       <Row xs={1} sm={2} md={3} lg={4} className="g-4 flex-column">
         {success && data.map((item) => {
           if (item.type === 'user') {
-            const isFollowed = followdata.some((f) => f.userfollowing === item.login);
+            const isFollowed = (followdata||[]).some((f) => f.userfollowing === item.login);
             console.log(isFollowed)
 
             return (
@@ -106,6 +106,12 @@ const ViewallUsers = () => {
             return (
               <Col key={item._id}>
                 <Card bg="light" style={{ minHeight: '100%' }}>
+                  <Card.Img
+                    variant="top"
+                    src={item.logo != null ? `${ip}/media/profile/${item.logo}` : 'no image'}
+                    alt={item.name}
+                    style={{ height: '200px', objectFit: 'cover' }}
+                  />
                   <Card.Body>
                     <Card.Title>{item.name}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">

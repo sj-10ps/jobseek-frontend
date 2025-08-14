@@ -51,6 +51,8 @@ const followunfollowSlice=createSlice({
             
         })
         .addCase(checkfollowstatusall.fulfilled,(state,action)=>{
+            state.loadingfollow=false
+           state.successfollow=true
             state.followdata=action.payload.data
         })
      
