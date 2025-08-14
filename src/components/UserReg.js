@@ -46,7 +46,7 @@ const UserReg = () => {
     <Card
       bg={"light"}
       style={{ width: "500px", height: "auto" }}
-      className="m-4"
+      className="m-4 shadow-lg"
     >
       <Card.Header
         style={{ textAlign: "center", fontWeight: "bold", fontSize: "20px" }}

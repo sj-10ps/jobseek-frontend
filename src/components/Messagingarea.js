@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card, Form, Button, InputGroup } from 'react-bootstrap';
 import socket from './socket';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMessages, sendMessage } from '../redux/Fetchmessages';
+import { animate } from 'framer-motion';
 
 const Messagingarea = ({ name, receiverid }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const dispatch = useDispatch();
   const currentUserId = localStorage.getItem('logid');
+  const scrollviewref=useRef(null)
+
+  useEffect(()=>{
+   scrollviewref.current.scrollIntoView({behavior:'auto'})
+  },[messages])
  
    useEffect(()=>{
     if(currentUserId){
@@ -19,8 +25,7 @@ const Messagingarea = ({ name, receiverid }) => {
    
 
   if (
-    (data.senderId === currentUserId && data.receiverId === receiverid) ||
-    (data.senderId === receiverid && data.receiverId === currentUserId)
+   data.receiverId === currentUserId
   ) {
    
     setMessages((prev) => [...prev, data]);
@@ -35,12 +40,12 @@ const Messagingarea = ({ name, receiverid }) => {
 
 
 
-  // 🧾 Load chat history when receiver changes
+
   useEffect(() => {
     const loadMessages = async () => {  
       const response = await dispatch(fetchMessages({ senderId: currentUserId, receiverId: receiverid }));
       if (response.payload) {
-        setMessages(response.payload.data); // Make sure your `fetchMessages` returns message array
+        setMessages(response.payload.data); 
       }
     };
 
@@ -60,8 +65,9 @@ const Messagingarea = ({ name, receiverid }) => {
     };
 
     // Save message to DB
-    dispatch(sendMessage(messageData));
+    
     socket.emit("send_message",messageData)
+    await  dispatch(sendMessage(messageData));
 
 
     
@@ -94,6 +100,7 @@ const Messagingarea = ({ name, receiverid }) => {
             </div>
           );
         })}
+        <div ref={scrollviewref}></div>
       </Card.Body>
 
       <Card.Footer>

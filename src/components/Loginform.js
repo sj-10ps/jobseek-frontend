@@ -56,7 +56,7 @@ const Loginform = () => {
   };
 
   return (
-    <div className="card p-4 shadow" style={{ width: "400px" }}>
+    <div className="card p-4 shadow-lg" style={{ width: "400px" }}>
       <h3 className="text-center mb-4">Login</h3>
       <Formik
         initialValues={{ email: "", password: "" }}

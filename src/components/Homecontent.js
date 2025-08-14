@@ -4,7 +4,7 @@ const Homecontent = () => {
   return (
    <div className='homecontents'>
     <div>
-      <Card style={{ width: '100%' }}>
+      <Card className="shadow-lg"  style={{ width: '100%' }}>
   <Card.Header>Welcome to JobSeek</Card.Header>
   <Card.Body>
     <Card.Title>Your Career Starts Here 🚀</Card.Title>

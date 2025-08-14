@@ -54,7 +54,7 @@ const Companyreg = () => {
   };
 
   return (
-    <Card bg="light" style={{ width: '500px', margin: 'auto' }} className="m-4">
+    <Card bg="light" style={{ width: '500px', margin: 'auto' }} className="m-4 shadow-lg">
       <Card.Header className="text-center fw-bold fs-4">Company Registration</Card.Header>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
         {({ setFieldValue }) => (
