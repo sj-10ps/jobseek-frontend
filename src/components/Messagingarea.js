@@ -16,8 +16,8 @@ const Messagingarea = ({ name, receiverid }) => {
     }
 
    socket.on("receive_message", (data) => {     
-    console.log(data)
-  // If either sender or receiver matches, show the message
+   
+
   if (
     (data.senderId === currentUserId && data.receiverId === receiverid) ||
     (data.senderId === receiverid && data.receiverId === currentUserId)

@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, ListGroup, Image, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { followingfollowercount } from '../redux/Followingandfollowercount';
+
 import { ip } from '../redux/ip';
-import { fetchmessagesenders } from '../redux/Fetchmessages';
+
 import Messagingarea from './Messagingarea';
+import { fetchmessagingusers } from '../redux/Messagingusers';
 
 const Messaging = () => {
   const [userdata, setUserdata] = useState({});
   const logid = localStorage.getItem('logid');
-  const { followerloading, followingdata } = useSelector(state => state.followingfollowercount);
-  const { messageloading, messagesenders } = useSelector(state => state.messages);
+  const {fetchmessagingusersloading,fetchmessaginguserssuccess,fetchmessagingusersdata}=useSelector(state=>state.fetchmessagingusers)
+   
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(followingfollowercount(logid));
-    dispatch(fetchmessagesenders(logid));
+     dispatch(fetchmessagingusers(logid))
   }, [dispatch, logid]);
 
-  if (followerloading && messageloading) {
+  if (fetchmessagingusersloading) {
     return (
       <div className="d-flex justify-content-center align-items-center" style={{ height: '80vh' }}>
         <Spinner animation="border" />
@@ -36,16 +36,11 @@ const Messaging = () => {
               <strong>Messenger</strong>
             </Card.Header>
             <ListGroup variant="flush" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
-              {followingdata
-                .filter(
-                  follower =>
-                    !messagesenders.some(sender => sender.data.id === follower.data.id)
-                )
-                .map(follower => {
-                  const isUser = follower.type === 'user';
+              {fetchmessagingusersdata.map(follower => {
+                  const isUser = follower.usertype === 'user';
                   return (
                     <ListGroup.Item
-                      key={follower.id}
+                      key={follower._id}
                       action
                       onClick={() => setUserdata(follower)}
                       className="d-flex align-items-center"
@@ -53,14 +48,14 @@ const Messaging = () => {
                       <Image
                         src={
                           isUser
-                            ? `${ip}/media/profile/${follower.data.image}`
-                            : `${ip}/media/profile/${follower.data.logo}`
+                            ? `${ip}/media/profile/${follower.userdetails.image}`
+                            : `${ip}/media/profile/${follower.companydetails.logo}`
                         }
                         roundedCircle
                         style={{ width: 40, height: 40, objectFit: 'cover', marginRight: 10 }}
                       />
                       <span>
-                        {isUser ? follower.data.firstname : follower.data.name}
+                        {isUser ? follower.userdetails.firstname : follower.companydetails.name}
                       </span>
                     </ListGroup.Item>
                   );
@@ -76,14 +71,14 @@ const Messaging = () => {
               <strong>Messaging</strong>
             </Card.Header>
             <Card.Body style={{ overflowY: 'auto' }}>
-              {userdata?.data ? (
+              {userdata._id ? (
                 <Messagingarea
                   name={
-                    userdata.type === 'user'
-                      ? userdata.data.firstname
-                      : userdata.data.name
+                    userdata.usertype === 'user'
+                      ? userdata.userdetails.firstname
+                      : userdata.companydetails.name
                   }
-                  receiverid={userdata.data.logid}
+                  receiverid={userdata._id}
                 />
               ) : (
                 <div className="text-center text-muted mt-5">

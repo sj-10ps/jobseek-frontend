@@ -37,6 +37,7 @@ import viewapplicantreducer from './redux/viewapplicantSlice';
 import selectapplicantsreducer from './redux/applicantsselection';
 import fetchallpostsreducer from './redux/fetchallposts';
 import messagereducer from './redux/Fetchmessages';
+import fetchmessagingusersreducer from './redux/Messagingusers';
 
 
 const store=configureStore({
@@ -70,7 +71,8 @@ const store=configureStore({
     viewapplicant:viewapplicantreducer,
     selectapplicants:selectapplicantsreducer,
     fetchallposts:fetchallpostsreducer,
-    messages:messagereducer
+    messages:messagereducer,
+    fetchmessagingusers:fetchmessagingusersreducer
     
   }
   

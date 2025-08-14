@@ -41,6 +41,7 @@ const Alljobsuser = () => {
 
 
     const handlesearch=(e)=>{
+      setsearch(e.target.value)
         const jobtitle=e.target.value.toLowerCase()
         const searchedjobs=alljobs.filter(job=>job.title.toLowerCase().startsWith(jobtitle))
         setfilteredjobs(searchedjobs)
