@@ -17,6 +17,7 @@ const Viewapplications = () => {
  const {applicantloading,applicantsuccess,applicantdata,selecteddata}=useSelector(state=>state.viewapplicant)
  const [viewapplicants,setviewapplicants]=useState(false)
  const [viewselectedapplicants,setviewselectedapplicants]=useState(false)
+ const [tempjobid,settempjobid]=useState(null)
 
 
   const handleCloseJob = async(jobId) => {
@@ -25,7 +26,7 @@ const Viewapplications = () => {
     alert('Job closed successfully!');
   };
     useEffect(() => {
-    dispatch(fetchjobsbyid(companyId)); // Fetch jobs for this company
+    dispatch(fetchjobsbyid(companyId)); 
   }, [dispatch, companyId]);
 
   if (loading) {
@@ -33,9 +34,12 @@ const Viewapplications = () => {
   }
 
   const viewapplicatant=async(jobid)=>{
+  
+     settempjobid(jobid)
     await dispatch(viewapplicant({jobid}))
   
      setviewapplicants(true)
+    
     
    
 
@@ -131,7 +135,7 @@ const Viewapplications = () => {
     </Container>
 
     {viewapplicants&&(
-      <ApplicantModal applicantdata={applicantdata} applicantloading={applicantloading} onClose={()=>setviewapplicants(false)}/>
+      <ApplicantModal applicantdata={applicantdata} applicantloading={applicantloading} applicantsuccess={applicantsuccess} jobid={tempjobid} onClose={()=>setviewapplicants(false)}/>
     )}
  {viewselectedapplicants && (
 

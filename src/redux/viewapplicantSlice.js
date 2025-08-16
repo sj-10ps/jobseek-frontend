@@ -20,6 +20,15 @@ export const viewselectedapplicant=createAsyncThunk(
 )
 
 
+export const viewfilteredapplicants=createAsyncThunk(
+    "viewapplicant/viewfilteredapplicants",
+    async({jobid})=>{
+      const response=await axios.post(`${ip}/viewfilteredapplicants`,{jobid})
+      return response.data  
+    }
+)
+
+
 
 
 const viewapplicantslice=createSlice({
@@ -28,7 +37,10 @@ const viewapplicantslice=createSlice({
         applicantloading:false,
         applicantsuccess:false,
         applicantdata:[],
-        selecteddata:[]
+        selecteddata:[],
+        filtereddata:[],
+        filteredloading:false,
+        filteredsuccess:false,
        
     },
     reducers:{},
@@ -53,6 +65,16 @@ const viewapplicantslice=createSlice({
         .addCase(viewselectedapplicant.pending,(state)=>{
             state.applicantloading=true
             state.applicantsuccess=false
+        })
+        .addCase(viewfilteredapplicants.fulfilled,(state,action)=>{
+            state.filteredloading=false
+            state.filteredsuccess=true
+            state.filtereddata=action.payload.data
+            
+        })
+        .addCase(viewfilteredapplicants.pending,(state)=>{
+            state.filteredloading=true
+            state.filteredsuccess=false
         })
         
 
