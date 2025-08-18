@@ -150,5 +150,3 @@ const Viewapplications = () => {
 };
 
 export default Viewapplications;
-
-

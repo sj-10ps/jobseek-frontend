@@ -171,25 +171,7 @@ const ContemporarySidebarResume = ({
             </section>
           )}
 
-          {/* Education */}
-          {educations?.length > 0 && (
-            <section>
-              <h2 style={sectionTitleStyle}>Education</h2>
-              {educations.map((edu, index) => (
-                <div key={index} style={cardStyle}>
-                  <h3 style={cardTitleStyle}>{edu.degree}</h3>
-                  <p style={cardSubtitleStyle}>{edu.field}</p>
-                  <p style={cardTextStyle}>{edu.institute}</p>
-                  <p style={cardTextStyle}>
-                    {formatYearOnly(edu.startdate)} - {edu.enddate ? formatYearOnly(edu.enddate) : 'Present'}
-                  </p>
-                  {edu.extra && (
-                    <p style={cardExtraStyle}>{edu.extra}</p>
-                  )}
-                </div>
-              ))}
-            </section>
-          )}
+          
 
           {/* Certifications */}
           {certifications?.length > 0 && (
@@ -214,6 +196,26 @@ const ContemporarySidebarResume = ({
 
         {/* Right Main Content */}
         <main style={{ flex: 1, padding: '40px', backgroundColor: '#ffffff' }}>
+
+          {/* Education */}
+          {educations?.length > 0 && (
+            <section>
+              <h2 style={mainTitleStyle}>Education</h2>
+              {educations.map((edu, index) => (
+                <div key={index} style={cardStyle}>
+                  <h3 style={cardTitleStyle}>{edu.degree}</h3>
+                  <p style={cardSubtitleStyle}>{edu.field}</p>
+                  <p style={cardTextStyle}>{edu.institute}</p>
+                  <p style={cardTextStyle}>
+                    {formatYearOnly(edu.startdate)} - {edu.enddate ? formatYearOnly(edu.enddate) : 'Present'}
+                  </p>
+                  {edu.extra && (
+                    <p style={cardExtraStyle}>{edu.extra}</p>
+                  )}
+                </div>
+              ))}
+            </section>
+          )}
           {/* Professional Summary */}
           {userData.summary && (
             <section style={{ marginBottom: '40px' }}>

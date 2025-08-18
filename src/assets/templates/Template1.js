@@ -81,7 +81,7 @@ const Template1 = ({ userData, experiences, educations, certifications, skills }
   }
 
   return (
-<div className='d-flex flex-column gap-2'>
+<div className='d-flex flex-column gap-2' >
     <Button onClick={saveresume} disabled={loading}>save resume</Button>
   
     <div className="resume-page-wrapper" style={{minWidth:'600px'}} > 

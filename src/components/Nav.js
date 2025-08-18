@@ -61,6 +61,7 @@ const NavBar = () => {
       "/alljobs",
       "/usercommunity",
       "/messaging",
+      "/userfeedback"
     ].includes(pathname) ||
     pathname.startsWith("/Showresumepreview/") ||
     pathname.startsWith("/userProfile") ||
@@ -73,6 +74,7 @@ const NavBar = () => {
     "/viewapplications",
     "/community",
     "/companymessages",
+    "/companyfeedback"
   ].includes(pathname);
 
   const isadmin = [
@@ -80,6 +82,7 @@ const NavBar = () => {
     "/adminviewallusers",
     "/adminviewallcompanies",
     "/viewcompanyrequests",
+    "/viewfeedbacks"
   ].includes(pathname);
 
   const handleThemeToggle = async () => {
@@ -100,6 +103,7 @@ const NavBar = () => {
     { label: "view applications", path: "/viewapplications" },
     { label: "community", path: "/community" },
     { label: "messages", path: "/companymessages" },
+    {label:"message applicants",path:"/selecteduserstext"}
   ];
 
   return (
@@ -254,6 +258,7 @@ const NavBar = () => {
                 <Nav.Link as={Link} to="/companyreg">
                   Company Registration
                 </Nav.Link>
+
               </>
             )}
 
@@ -319,6 +324,10 @@ const NavBar = () => {
                     )}
                   </div>
                 )}
+
+                 <Nav.Link as={Link} to="/userfeedback">
+                  Feedback
+                </Nav.Link>
 
                 <Nav.Link as={Link} to="/login">
                   Logout
@@ -388,6 +397,10 @@ const NavBar = () => {
                     )}
                   </div>
                 )}
+
+                 <Nav.Link as={Link} to="/companyfeedback">
+                  Feedback
+                </Nav.Link>
                 <Nav.Link as={Link} to="/login">
                   Logout
                 </Nav.Link>

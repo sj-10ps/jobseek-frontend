@@ -13,6 +13,8 @@ import ViewAllcompanies from '../components/ViewAllcompanies'
 import Alljobs from '../components/Alljobs'
 import Community from '../components/Community'
 import Messaging from '../components/Messaging'
+import Feedback from 'react-bootstrap/esm/Feedback'
+import Feedbackform from '../components/Feedback'
 
 
 const Userhome = () => {
@@ -36,6 +38,7 @@ const Userhome = () => {
          {pathname.startsWith('/alljobs')&&<Alljobs/>}
          {pathname.startsWith('/usercommunity')&&<Community/>}
          {pathname==='/messaging'&&<Messaging/>}
+          {pathname==='/userfeedback'&&<Feedbackform  />}
          
 
          

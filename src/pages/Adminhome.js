@@ -7,6 +7,7 @@ import AdminViewallusers from '../components/AdminViewallusers'
 import Adminviewallcompanies from '../components/Adminviewallcompanies'
 import ViewAllcompanies from '../components/ViewAllcompanies'
 import Viewcompanyrequests from '../components/Viewcompanyrequests'
+import Viewfeedbacks from '../components/Viewfeedbacks'
 
 const Adminhome = () => {
   const location=useLocation().pathname
@@ -23,6 +24,7 @@ const Adminhome = () => {
      {location==="/adminviewallusers"&&<AdminViewallusers/>}
      {location==='/adminviewallcompanies'&&<Adminviewallcompanies/>}
      {location==="/viewcompanyrequests"&&<Viewcompanyrequests/>}
+       {location==="/viewfeedbacks"&&<Viewfeedbacks/>}
    
     </div>
 

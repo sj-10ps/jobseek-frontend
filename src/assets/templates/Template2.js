@@ -130,27 +130,29 @@ const ContemporarySidebarResume = ({ userData, experiences, educations, certific
             </section>
           )}
 
-          {/* Certifications */}
-          {certifications && certifications.length > 0 && (
-            <section className="cs-sidebar-section cs-certifications-section">
-              <h2 className="cs-sidebar-title">Certifications</h2>
-              {certifications.map((cert, index) => (
-                <div key={index} className="cs-certification-item">
-                  <h3>{cert.title}</h3>
-                  <p className="cs-cert-issuer">Issued by: {cert.issued}</p>
-                  <p className="cs-cert-date">On: {new Date(cert.issuedate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</p>
-                  {cert.credentialid && <p className="cs-cert-id">ID: {cert.credentialid}</p>}
-                  {cert.credentialurl && <p><a href={cert.credentialurl} target="_blank" rel="noopener noreferrer" className="cs-cert-link">View Credential</a></p>}
-                  {cert.media && <p className="cs-cert-media">Media: {cert.media}</p>}
-                </div>
-              ))}
-            </section>
-          )}
+         
         </aside>
 
         {/* Right Main Content */}
         <main className="cs-main-content">
           {/* Professional Summary */}
+           {/* Certifications */}
+          {certifications && certifications.length > 0 && (
+            <section className="cs-main-section cs-experience-section">
+              <h2 className="cs-main-title">Certifications</h2>
+              {certifications.map((cert, index) => (
+                <div key={index} className="cs-certification-item">
+                  <h3>{cert.title}</h3>
+                  <p className="cs-exp-header">Issued by: {cert.issued}</p>
+                  <p className="cs-exp-dates">On: {new Date(cert.issuedate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</p>
+                  {cert.credentialid && <p className="cs-exp-company-location">ID: {cert.credentialid}</p>}
+                  {cert.credentialurl && <p><a href={cert.credentialurl} target="_blank" rel="noopener noreferrer" className="cs-exp-company-location">View Credential</a></p>}
+
+                </div>
+              ))}
+            </section>
+          )}
+
           <section className="cs-main-section cs-summary-section">
             <h2 className="cs-main-title">Summary</h2>
             <p>{summary}</p>

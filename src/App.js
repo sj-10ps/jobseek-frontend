@@ -8,6 +8,7 @@ import Companyhome from "./pages/Companyhome";
 import Passreset from "./components/Passreset";
 import { useSelector } from "react-redux";
 import bg from "./assets/images/bg.png";
+import Viewfeedbacks from "./components/Viewfeedbacks";
 
 function App() {
   const { dark } = useSelector((state) => state.theme);
@@ -36,6 +37,7 @@ function App() {
           <Route path="/forgotpost/:token" element={<Passreset />} />
           <Route path="/userregistration" element={<Homepage />} />
           <Route path="/companyreg" element={<Homepage />} />
+          
 
           <Route path="/userhome" element={<Userhome />} />
           <Route path="/userintro" element={<Userhome />} />
@@ -49,6 +51,7 @@ function App() {
           <Route path="/resumetemplates" element={<Userhome />} />
           <Route path="/Showresumepreview/:no" element={<Userhome />} />
           <Route path="/viewallusers/:query" element={<Userhome />} />
+            <Route path="/userfeedback" element={<Userhome/>}> </Route>
 
           <Route path="/alljobs" element={<Userhome />}></Route>
           <Route path="/usercommunity" element={<Userhome />}></Route>
@@ -59,11 +62,14 @@ function App() {
           <Route path="/viewapplications" element={<Companyhome />} />
           <Route path="/community" element={<Companyhome />} />
           <Route path="/companymessages" element={<Companyhome />} />
-
+            <Route path="/selecteduserstext" element={<Companyhome />} />
+                <Route path="/companyfeedback" element={<Companyhome/>}> </Route>
           <Route path="/adminhome" element={<Adminhome />} />
           <Route path="/adminviewallcompanies" element={<Adminhome />} />
           <Route path="/adminviewallusers" element={<Adminhome />} />
           <Route path="/viewcompanyrequests" element={<Adminhome />} />
+           <Route path="/viewfeedbacks" element={<Adminhome />} />
+        
         </Routes>
       </BrowserRouter>
     </div>

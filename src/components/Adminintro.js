@@ -17,25 +17,32 @@ const Adminintro = () => {
                 As an administrator, you have access to the core management features of the JobSeek platform:
               </Card.Text>
               <Row>
-                <Col md={4} className="text-center">
+                <Col md={3} className="text-center">
                   <Card className="p-3 shadow-sm h-100">
                     <h5>👤 View All Users</h5>
                     <p className="text-muted">Monitor and manage all job seekers on the platform.</p>
                     <Button variant="primary" size="sm" onClick={()=>navigate('/adminviewallusers')}>Go to Users</Button>
                   </Card>
                 </Col>
-                <Col md={4} className="text-center">
+                <Col md={3} className="text-center">
                   <Card className="p-3 shadow-sm h-100">
                     <h5>🏢 View All Companies</h5>
                     <p className="text-muted">Access and verify all company profiles.</p>
                     <Button variant="primary" size="sm" onClick={()=>navigate('/adminviewallcompanies')}>Go to Companies</Button>
                   </Card>
                 </Col>
-                <Col md={4} className="text-center">
+                <Col md={3} className="text-center">
                   <Card className="p-3 shadow-sm h-100">
                     <h5>✅ Approve Requests</h5>
                     <p className="text-muted">Approve pending company registration requests.</p>
                     <Button variant="primary" size="sm"  onClick={()=>navigate('/viewcompanyrequests')}>Review Requests</Button>
+                  </Card>
+                </Col>
+                 <Col md={3} className="text-center">
+                  <Card className="p-3 shadow-sm h-100">
+                    <h5>👁️ View Feedback</h5>
+                    <p className="text-muted">View feedbacks from User</p>
+                    <Button variant="primary" size="sm"  onClick={()=>navigate('/viewfeedbacks')}>View feedbacks</Button>
                   </Card>
                 </Col>
               </Row>

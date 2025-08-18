@@ -11,6 +11,9 @@ import Uploadjobs from '../components/Uploadjobs'
 import Viewapplications from '../components/Viewapplications'
 import Community from '../components/Community'
 import Messaging from '../components/Messaging'
+import Companyselecteduserstext from '../components/companyselectedusers'
+import Feedback from 'react-bootstrap/esm/Feedback'
+import Feedbackform from '../components/Feedback'
 
 const Companyhome = () => {
   const location=useLocation().pathname
@@ -25,7 +28,8 @@ const Companyhome = () => {
           {location==="/viewapplications"&&<Viewapplications/>}
           {location==='/community'&&<Community/>}
         {location==='/companymessages'&&<Messaging/>}
-     
+        {location==='/selecteduserstext'&&<Companyselecteduserstext/>}
+         {location==='/companyfeedback'&&<Feedbackform/>}
       </main>
 
     </div>
