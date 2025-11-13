@@ -48,7 +48,7 @@ const Companyselecteduserstext = () => {
                     >
                       <Image
                         src={
-                          `${ip}/media/profile/${follower.user.image}`
+                          `${follower.user.image}`
                           
                         }
                         roundedCircle

@@ -51,7 +51,7 @@ const CompanyProfile = () => {
           <Card.Body>
             {loading&&'fetching details'}
             <div className="d-flex align-items-center gap-3 mb-3">
-              <img src={`${ip}/media/profile/${data.logo}`} alt="Logo" className="rounded" style={{ width: '80px', height: '80px' }} />
+              <img src={`${data.logo}`} alt="Logo" className="rounded" style={{ width: '80px', height: '80px' }} />
               <h3 className="mb-0">{data.name}</h3>
             </div>
             <p><strong>Email:</strong> {data.email}</p>

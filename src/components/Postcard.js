@@ -95,7 +95,7 @@ const Postcard = ({ otheruserid }) => {
           >
             <Card.Img
               variant="top"
-              src={`${ip}/media/post/${item.media}`}
+              src={`${item.media}`}
               alt="Post"
               style={{
                 maxHeight: '350px',

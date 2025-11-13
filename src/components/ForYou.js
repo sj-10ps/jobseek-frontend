@@ -76,8 +76,8 @@ const ForYou = () => {
         foryoudata.map(post => {
           const isuser = post.logindetails.usertype === "user";
           const profileImage = isuser
-            ? `${ip}/media/profile/${post.userdetails.image}`
-            : `${ip}/media/profile/${post.companydetails.logo}`;
+            ? `${post.userdetails.image}`
+            : `${post.companydetails.logo}`;
           const displayName = isuser
             ? `${post.userdetails.firstname} ${post.userdetails.lastname}`
             : post.companydetails.name;

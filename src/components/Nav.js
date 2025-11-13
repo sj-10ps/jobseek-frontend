@@ -74,7 +74,8 @@ const NavBar = () => {
     "/viewapplications",
     "/community",
     "/companymessages",
-    "/companyfeedback"
+    "/companyfeedback",
+    "/selecteduserstext"
   ].includes(pathname);
 
   const isadmin = [
@@ -420,6 +421,9 @@ const NavBar = () => {
                 </Nav.Link>
                 <Nav.Link as={Link} to="/viewcompanyrequests">
                   Company requests
+                </Nav.Link>
+                  <Nav.Link as={Link} to="/login">
+                  Logout
                 </Nav.Link>
               </>
             )}

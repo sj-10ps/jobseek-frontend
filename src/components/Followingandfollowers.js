@@ -52,8 +52,8 @@ const FollowersFollowing = () => {
         <Image
           src={
             item.type === 'user'
-              ? `${ip}/media/profile/${item.data.image}`
-              : `${ip}/media/profile/${item.data.logo}`
+              ? `${item.data.image}`
+              : `${item.data.logo}`
           }
           roundedCircle
           style={{ width: 50, height: 50, marginRight: 15 }}

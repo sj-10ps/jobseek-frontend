@@ -76,7 +76,7 @@ const ViewAllcompanies = () => {
         {data.logo && (
           <div className="mt-2">
             <img
-              src={data.logo!==null?`${ip}/media/profile/${data.logo}`:'no image'}
+              src={data.logo!==null?`${data.logo}`:'no image'}
               alt="Company Logo"
               style={{ width: '100%', maxHeight: '200px', objectFit: 'contain' }}
             />

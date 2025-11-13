@@ -48,8 +48,8 @@ const Messaging = () => {
                       <Image
                         src={
                           isUser
-                            ? `${ip}/media/profile/${follower.userdetails.image}`
-                            : `${ip}/media/profile/${follower.companydetails.logo}`
+                            ? `${follower.userdetails.image}`
+                            : `${follower.companydetails.logo}`
                         }
                         roundedCircle
                         style={{ width: 40, height: 40, objectFit: 'cover', marginRight: 10 }}

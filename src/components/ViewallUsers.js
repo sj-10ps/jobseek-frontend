@@ -52,7 +52,7 @@ const ViewallUsers = () => {
                 <Card style={{ minHeight: '100%' }}>
                   <Card.Img
                     variant="top"
-                    src={item.image != null ? `${ip}/media/profile/${item.image}` : 'no image'}
+                    src={item.image != null ? `${item.image}` : 'no image'}
                     alt={item.name}
                     style={{ height: '200px', objectFit: 'cover' }}
                   />
@@ -108,7 +108,7 @@ const ViewallUsers = () => {
                 <Card bg="light" style={{ minHeight: '100%' }}>
                   <Card.Img
                     variant="top"
-                    src={item.logo != null ? `${ip}/media/profile/${item.logo}` : 'no image'}
+                    src={item.logo != null ? `${item.logo}` : 'no image'}
                     alt={item.name}
                     style={{ height: '200px', objectFit: 'cover' }}
                   />

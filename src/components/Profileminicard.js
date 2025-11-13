@@ -44,7 +44,7 @@ const Profileminicard = () => {
         {success && (
           <>
             <Image
-              src={data.image === "pending" ? `logo512.png` : `${ip}/media/profile/${data.image}`}
+              src={data.image === "pending" ? `logo512.png` : `${data.image}`}
               roundedCircle
               style={{
                 width: 100,

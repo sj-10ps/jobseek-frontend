@@ -55,7 +55,7 @@ const AdminViewallusers = () => {
               <tr key={idx}>
                 <td>
                   <Image
-                    src={`${ip}/media/profile/${user.image} `|| '/default-user.png'}
+                    src={`${user.image} `|| '/default-user.png'}
                     roundedCircle
                     width={50}
                     height={50}

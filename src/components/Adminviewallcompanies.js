@@ -50,7 +50,7 @@ const Adminviewallcompanies = () => {
           <tbody>
             {companies.map((company, index) => (
               <tr key={index}>
-                 <td><img src={`${ip}/media/profile/${company.logo}`} style={{height:50}}/></td>
+                 <td><img src={`${company.logo}`} style={{height:50}}/></td>
                 <td>{company.name}</td>
                 <td>{company.email}</td>
                 <td>{company.phone}</td>

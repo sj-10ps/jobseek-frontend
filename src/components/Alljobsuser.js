@@ -67,7 +67,7 @@ const Alljobsuser = () => {
                   {/* Company Info */}
                   <div className="d-flex align-items-center mb-3">
                     <Image
-                      src={`${ip}/media/profile/${job.company.logo}`}
+                      src={`${job.company.logo}`}
                       roundedCircle
                       style={{ width: 50, height: 50, marginRight: 15 }}
                       alt="Company Logo"

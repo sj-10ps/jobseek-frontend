@@ -104,10 +104,10 @@ const handlefollowunfollow=async(otheruserloginid)=>{
               <div
                 className="position-relative d-flex flex-column align-items-center mb-3"
                 style={{ cursor: 'pointer' }}
-                onClick={otheruserid===null?() => dispatch(setLocation('/updateimage')):undefined}
+                onClick={!otheruserid?() => dispatch(setLocation('/updateimage')):undefined}
               >
                 <Image
-                  src={profiledata.image !== 'pending' ? `${ip}/media/profile/${profiledata.image}` : 'logo512.png'}
+                  src={profiledata.image !== 'pending' ? `${profiledata.image}` : 'logo512.png'}
                   roundedCircle
                   style={{ height: '100px', width: '100px', objectFit: 'cover' }}
                 />
@@ -321,7 +321,7 @@ const handlefollowunfollow=async(otheruserloginid)=>{
           {loading && <>Loading data...</>}
 
           {success && certificatedata.map((cert) => {
-            const fileUrl = `${ip}/media/certificate/${cert.media}`;
+            const fileUrl = `${cert.media}`;
             const fileExt = cert.media?.split('.').pop().toLowerCase();
             const isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExt);
             const isPDF = fileExt === 'pdf';
