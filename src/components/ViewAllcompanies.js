@@ -1,109 +1,143 @@
 import React, { useEffect } from 'react';
 import { Container, Row, Col, Card, Spinner, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import {checkfollowstatus, resetstatus} from '../redux/followedstatus'
-
 import { useParams } from 'react-router-dom';
+
 import { fetchcompany } from '../redux/fetchcompanydetails';
-import { ip } from '../redux/ip';
 import { followunfollow } from '../redux/Followingslice';
+import { checkfollowstatus } from '../redux/followedstatus';
+
 import Postcard from './Postcard';
 
 const ViewAllcompanies = () => {
   const dispatch = useDispatch();
+  const { othercompanyid } = useParams();
 
-  const {othercompanyid}=useParams()
   const { loading, data, success } = useSelector((state) => state.fetchcompany);
-  const {followstatusloading,followdata}=useSelector((state)=>state.followedstatus)
+  const { followstatusloading, followdata } = useSelector((state) => state.followedstatus);
 
+  const logid = localStorage.getItem("logid");
+  const companyid = localStorage.getItem("comid");
+
+  // -------------------------------
+  // FETCH COMPANY + FOLLOW STATUS
+  // -------------------------------
   useEffect(() => {
-  
-    dispatch(fetchcompany(othercompanyid)); 
-    dispatch(checkfollowstatus({followingid:data.login,followerid:localStorage.getItem("logid")}))
+    dispatch(fetchcompany(othercompanyid));
+  }, [dispatch, othercompanyid]);
 
-  }, [dispatch,othercompanyid]);
+  // Run follow-status check only AFTER company is fetched
+  useEffect(() => {
+    if (success && data?.login) {
+      dispatch(
+        checkfollowstatus({
+          followingid: data.login,
+          followerid: logid
+        })
+      );
+    }
+  }, [dispatch, success, data?.login, logid]);
 
-  const handlefollow=async()=>{
-  await dispatch (followunfollow({followingid:data.login,followerid:localStorage.getItem("logid")}))
-  dispatch(checkfollowstatus({followingid:data.login,followerid:localStorage.getItem("logid")}))
- 
-  }
+  // -------------------------------
+  // FOLLOW/UNFOLLOW BUTTON HANDLER
+  // -------------------------------
+  const handlefollow = async () => {
+    if (!data?.login) return;
 
-  if (loading) {
+    await dispatch(
+      followunfollow({
+        followingid: data.login,
+        followerid: logid
+      })
+    );
+
+    dispatch(
+      checkfollowstatus({
+        followingid: data.login,
+        followerid: logid
+      })
+    );
+  };
+
+  // -------------------------------
+  // LOADING VIEW
+  // -------------------------------
+  if (loading || !success) {
     return (
       <div className="text-center mt-5">
         <Spinner animation="border" />
       </div>
     );
   }
-  
 
-
+  const company = data || {};
 
   return (
     <Container className="mt-4" style={{ height: "90vh", padding: 10 }}>
-      <div className='d-flex gap-4 justify-content-between'>
-      <Row className="d-flex flex-column">
-        
-     
-  <Col >
-    <Card bg="light" >
-      <Card.Body>
-        <Card.Title>{data.name}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">
-          {data.industry || 'No sector specified'}
-        </Card.Subtitle>
-        <Card.Text>
-          <strong>Email:</strong> {data.email || 'N/A'}<br />
-          <strong>Phone:</strong> {data.phone || 'N/A'}<br />
-          <strong>District:</strong> {data.district}<br />
-          <strong>State:</strong> {data.state}<br />
-          <strong>Location:</strong> {data.location}<br />
-          <strong>Status:</strong> {data.status}<br />
-          <strong>Description:</strong> {data.description || 'No description'}<br />
-        </Card.Text>
+      <div className="d-flex gap-4 justify-content-between">
 
-        {data.website && (
-          <Card.Link href={data.website} target="_blank">
-            Website
-          </Card.Link>
-        )}
-        {data.linkedin && (
-          <Card.Link href={data.linkedin} target="_blank">
-            LinkedIn
-          </Card.Link>
-        )}
-        {data.logo && (
-          <div className="mt-2">
-            <img
-              src={data.logo!==null?`${data.logo}`:'no image'}
-              alt="Company Logo"
-              style={{ width: '100%', maxHeight: '200px', objectFit: 'contain' }}
-            />
-          </div>
-        )}
-      </Card.Body>
-      <Card.Footer className="text-muted">
-        Registered: {new Date(data.registeredat).toLocaleDateString()}<br />
-        Approved: {data.approvedat ? new Date(data.approvedat).toLocaleDateString() : 'Not Approved'}<br />
-        Updated: {new Date(data.updatedat).toLocaleDateString()}
-    
-      </Card.Footer>
-      {othercompanyid!==localStorage.getItem("comid")&&(
-          <Button onClick={handlefollow}>
-          {followstatusloading&&<Spinner animation='border'/>}
-          {followdata.length===0?'follow':'unfollow'}
-        </Button>
-        )}
+        <Row className="d-flex flex-column">
+          <Col>
+            <Card bg="light">
+              <Card.Body>
+                <Card.Title>{company.name}</Card.Title>
 
-    </Card>
-  </Col>
+                <Card.Subtitle className="mb-2 text-muted">
+                  {company.industry || 'No sector specified'}
+                </Card.Subtitle>
 
+                <Card.Text>
+                  <strong>Email:</strong> {company.email || 'N/A'} <br />
+                  <strong>Phone:</strong> {company.phone || 'N/A'} <br />
+                  <strong>District:</strong> {company.district || 'N/A'} <br />
+                  <strong>State:</strong> {company.state || 'N/A'} <br />
+                  <strong>Location:</strong> {company.location || 'N/A'} <br />
+                  <strong>Status:</strong> {company.status || 'N/A'} <br />
+                  <strong>Description:</strong> {company.description || 'No description'} <br />
+                </Card.Text>
 
-      </Row>
-     <div style={{overflowY:'scroll',width:'400px',maxHeight:'90vh'}}>
-      <Postcard otheruserid={data.login}/>
-      </div>
+                {company.website && (
+                  <Card.Link href={company.website} target="_blank">Website</Card.Link>
+                )}
+                {company.linkedin && (
+                  <Card.Link href={company.linkedin} target="_blank">LinkedIn</Card.Link>
+                )}
+
+                {company.logo && (
+                  <div className="mt-2">
+                    <img
+                      src={company.logo}
+                      alt="Company Logo"
+                      style={{
+                        width: '100%',
+                        maxHeight: '200px',
+                        objectFit: 'contain'
+                      }}
+                    />
+                  </div>
+                )}
+              </Card.Body>
+
+              <Card.Footer className="text-muted">
+                Registered: {company.registeredat ? new Date(company.registeredat).toLocaleDateString() : "N/A"} <br />
+                Approved: {company.approvedat ? new Date(company.approvedat).toLocaleDateString() : 'Not Approved'} <br />
+                Updated: {company.updatedat ? new Date(company.updatedat).toLocaleDateString() : "N/A"}
+              </Card.Footer>
+
+              {othercompanyid !== companyid && (
+                <Button onClick={handlefollow}>
+                  {followstatusloading && <Spinner animation="border" size="sm" />}
+                  {followdata?.length === 0 ? 'Follow' : 'Unfollow'}
+                </Button>
+              )}
+            </Card>
+          </Col>
+        </Row>
+
+        {/* Posts Section */}
+        <div style={{ overflowY: 'scroll', width: '400px', maxHeight: '90vh' }}>
+          <Postcard otheruserid={company.login} />
+        </div>
       </div>
     </Container>
   );

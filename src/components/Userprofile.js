@@ -63,8 +63,10 @@ const UserProfile = () => {
 
 
 const handlefollowunfollow=async(otheruserloginid)=>{
-  await dispatch(followunfollow({followingid:otheruserloginid,followerid:logid}))
-  dispatch(checkfollowstatus({followingid:otheruserloginid,followerid:logid}))
+   await dispatch(checkfollowstatus({followingid:otheruserloginid,followerid:logid}))
+ dispatch(followunfollow({followingid:otheruserloginid,followerid:logid}))
+ 
+  
   
   
   
