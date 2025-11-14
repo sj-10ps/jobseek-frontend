@@ -284,47 +284,7 @@ const NavBar = () => {
                     Search Users
                   </button>
                 </div>
-                {searchdisplay && (
-                  <div
-                    className="list-group position-absolute"
-                    style={{
-                      zIndex: 10,
-                      right: "230px",
-                      top: "58px",
-                      width: "400px",
-                    }}
-                  >
-                    {data && (
-                      <ul>
-                        {data.map((user, idx) => (
-                          <li
-                            key={idx}
-                            className="list-group-item list-group-item-action"
-                            onClick={() => {
-                              navigate(
-                                user.type === "user"
-                                  ? `/userProfile/${user._id}`
-                                  : `/companyprofile/${user._id}`
-                              );
-
-                              setFilteredResults([]);
-                              setsearchdisplay(!searchdisplay);
-                              setQuery("");
-                            }}
-                          >
-                            {user.name}
-                          </li>
-                        ))}
-                        <Button
-                          className="d-flex justify-content-center w-100"
-                          onClick={() => setsearchdisplay(!searchdisplay)}
-                        >
-                          Cancel
-                        </Button>
-                      </ul>
-                    )}
-                  </div>
-                )}
+            
 
                  <Nav.Link as={Link} to="/userfeedback">
                   Feedback
@@ -357,47 +317,7 @@ const NavBar = () => {
                     Search Users
                   </button>
                 </div>
-                {searchdisplay && (
-                  <div
-                    className="list-group position-absolute"
-                    style={{
-                      zIndex: 10,
-                      right: "320px",
-                      top: "58px",
-                      width: "400px",
-                    }}
-                  >
-                    {data.length >= 0 && (
-                      <ul>
-                        {data.map((user, idx) => (
-                          <li
-                            key={idx}
-                            className="list-group-item list-group-item-action"
-                            onClick={() => {
-                              navigate(
-                                user.type === "user"
-                                  ? `/userProfile/${user._id}`
-                                  : `/companyprofile/${user._id}`
-                              );
-
-                              setFilteredResults([]);
-                              setsearchdisplay(!searchdisplay);
-                              setQuery("");
-                            }}
-                          >
-                            {user.name}
-                          </li>
-                        ))}
-                        <Button
-                          className="d-flex justify-content-center w-100"
-                          onClick={() => setsearchdisplay(!searchdisplay)}
-                        >
-                          Cancel
-                        </Button>
-                      </ul>
-                    )}
-                  </div>
-                )}
+            
 
                  <Nav.Link as={Link} to="/companyfeedback">
                   Feedback

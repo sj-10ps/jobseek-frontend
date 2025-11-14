@@ -44,7 +44,7 @@ const ContemporarySidebarResume = ({
 
       // 3. Convert the selected HTML element to a canvas (image of the DOM)
   // `scale: 2` makes the image high-resolution (2x zoom)
-    const canvas=await html2canvas(input,{scale:2})
+      const canvas=await html2canvas(input,{scale:1})
 
       // 4. Convert the canvas to image data in base64 format (PNG image)
       const imgdata=canvas.toDataURL('image/png')

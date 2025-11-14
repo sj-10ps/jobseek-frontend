@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import '../../css/ModernMinimalistResume.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchdetails } from '../../redux/Personaldetailsslice';
-import { Button } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { uploadcustomresume } from '../../redux/uploadcustomresumeSlice';
@@ -48,7 +48,7 @@ const Template1 = ({ userData, experiences, educations, certifications, skills }
 
       // 3. Convert the selected HTML element to a canvas (image of the DOM)
   // `scale: 2` makes the image high-resolution (2x zoom)
-    const canvas=await html2canvas(input,{scale:2})
+    const canvas=await html2canvas(input,{scale:1})
 
       // 4. Convert the canvas to image data in base64 format (PNG image)
       const imgdata=canvas.toDataURL('image/png')
@@ -82,7 +82,17 @@ const Template1 = ({ userData, experiences, educations, certifications, skills }
 
   return (
 <div className='d-flex flex-column gap-2' >
-    <Button onClick={saveresume} disabled={loading}>save resume</Button>
+<Button variant="primary" disabled={loading} onClick={saveresume}>
+  {loading ? (
+    <>
+      <Spinner animation="border" size="sm" className="me-2" />
+      Uploading...
+    </>
+  ) : (
+    "Save Resume"
+  )}
+</Button>
+    
   
     <div className="resume-page-wrapper" style={{minWidth:'600px'}} > 
       {/* This header is outside the main resume card */}

@@ -64,7 +64,8 @@ const UserProfile = () => {
 
 const handlefollowunfollow=async(otheruserloginid)=>{
   await dispatch(followunfollow({followingid:otheruserloginid,followerid:logid}))
-  await dispatch(checkfollowstatus({followingid:otheruserloginid,followerid:logid}))
+  dispatch(checkfollowstatus({followingid:otheruserloginid,followerid:logid}))
+  
   
   
 }
@@ -414,7 +415,7 @@ const handlefollowunfollow=async(otheruserloginid)=>{
         <Card.Body>
           <Card.Title>Custom Resume</Card.Title>
           {loadingresume&&<>loading resume</>}
-          {data?.generatedPdf??false?<Card.Link href={`${ip}/media/resume/${data.generatedPdf}`}>📄 View resume</Card.Link>:'no document'}
+          {data?.generatedPdf??false?<Card.Link href={`${data.generatedPdf}`}>📄 View resume</Card.Link>:'no document'}
           
         </Card.Body>
 

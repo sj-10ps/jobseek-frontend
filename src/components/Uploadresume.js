@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button, Form } from 'react-bootstrap';
+import { Card, Button, Form, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import { ip } from '../redux/ip';
 import { MdDelete } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { deleterecord } from '../redux/deleterecord';
 
-const ResumeCard = ({otheruserid}) => {
+const   ResumeCard = ({otheruserid}) => {
   const [resumeFile, setResumeFile] = useState(null);
   const [resumeUrl, setResumeUrl] = useState('');
   const [ids,setids]=useState('')
+  const [loading,setloading]=useState(false)
   const dispatch=useDispatch()
     useEffect(()=>{
     const fetchdata=async()=>{
@@ -21,22 +22,25 @@ const ResumeCard = ({otheruserid}) => {
         }
         
         const res=await axios.post(`${ip}/fetchresume`,formdata)
-        setResumeUrl(`${ip}/media/resume/${res.data.data}`)
+        setResumeUrl(`${res.data.data}`)
 
     }
     fetchdata()
-  },[resumeUrl])
+  },[otheruserid])
 
   const handleUpload = async () => {
 
-    
+    setloading(true)
     const formData = new FormData();
     formData.append('resume', resumeFile);
     formData.append('userid', localStorage.getItem('userid')); 
     
 
     try {
-       await axios.post(`${ip}/uploadresume`, formData);
+       const res=await axios.post(`${ip}/uploadresume`, formData);
+       if(res.data.status==="ok"){
+        setloading(false)
+       }
        
       
     } catch (error) {
@@ -65,9 +69,10 @@ const ResumeCard = ({otheruserid}) => {
  
        
         <Button className="mt-2" onClick={handleUpload} disabled={!resumeFile}>
-          Upload
+           {loading?<Spinner/>:'Upload'}
+ 
         </Button>
-}
+} 
 
         {resumeUrl && (
           <div className="mt-3">
