@@ -101,7 +101,7 @@ const ForYou = () => {
               {post.media && (
                 <Card.Img
                   variant="top"
-                  src={`${ip}/media/post/${post.media}`}
+                  src={`${post.media}`}
                   style={{ maxHeight: "300px", objectFit: "contain" }}
                 />
               )}

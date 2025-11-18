@@ -1,3 +1,8 @@
-import { io } from 'socket.io-client';
-const socket = io(process.env.BACKEND_URL); // Replace with your server URL
+import { io } from "socket.io-client";
+
+const socket = io(process.env.REACT_APP_BACKEND_URL, {
+  withCredentials: true,
+  transports: ["websocket"],
+});
+
 export default socket;
