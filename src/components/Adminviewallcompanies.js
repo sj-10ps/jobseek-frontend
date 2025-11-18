@@ -11,7 +11,7 @@ const Adminviewallcompanies = () => {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/getallcompanies');
+        const response = await axios.get(`${ip}/getallcompanies`);
         setCompanies(response.data);
         setAllcompanies(response.data);
       } catch (err) {

@@ -13,7 +13,7 @@ const Viewcompanyrequests = () => {
   useEffect(() => {
     const fetchCompanies = async () => {
       
-        const response = await axios.get('http://localhost:4000/getpendingcompanies');
+        const response = await axios.get(`${ip}/getpendingcompanies`);
         setAllcompanies(response.data)
         setCompanies(response.data);
      

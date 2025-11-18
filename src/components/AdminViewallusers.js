@@ -12,7 +12,7 @@ const AdminViewallusers = () => {
   
     const fetchUsers = async () => {
    
-        const response = await axios.get('http://localhost:4000/getallusers'); 
+        const response = await axios.get(`${ip}/getallusers`); 
         setUsers(response.data);
         setAllusers(response.data);
       
